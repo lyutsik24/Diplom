@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace Diplom
 {
@@ -21,7 +15,7 @@ namespace Diplom
 
             mainMenu = form;
 
-            Database.FillDataGridViewEmployees(dgvEmployees);
+            UpdateDataGridView();
 
             timerUpdate.Start();
         }
@@ -38,9 +32,8 @@ namespace Diplom
             {
                 if (e.RowIndex == -1 && e.ColumnIndex >= 0)
                 {
-                    // Шапка таблицы
-                    using (Brush backColorBrush = new SolidBrush(Color.FromArgb(24, 30, 54))) // Цвет фона шапки
-                    using (Brush foreColorBrush = new SolidBrush(Color.FromArgb(0, 126, 249))) // Цвет текста шапки
+                    using (Brush backColorBrush = new SolidBrush(Color.FromArgb(24, 30, 54)))
+                    using (Brush foreColorBrush = new SolidBrush(Color.FromArgb(0, 126, 249)))
                     {
                         e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
                         e.Graphics.DrawString(e.Value?.ToString(), dataGridView.ColumnHeadersDefaultCellStyle.Font, foreColorBrush, e.CellBounds, new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
@@ -131,6 +124,11 @@ namespace Diplom
         }
 
         private void timerUpdate_Tick(object sender, EventArgs e)
+        {
+            UpdateDataGridView();
+        }
+
+        private void UpdateDataGridView()
         {
             Database.FillDataGridViewEmployees(dgvEmployees);
         }
