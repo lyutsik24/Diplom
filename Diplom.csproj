@@ -95,6 +95,7 @@
       <DependentUpon>Authorization.cs</DependentUpon>
     </Compile>
     <Compile Include="Classess\HashHelper.cs" />
+    <Compile Include="Classess\Validator.cs" />
     <Compile Include="EmployeeList.cs">
       <SubType>Form</SubType>
     </Compile>

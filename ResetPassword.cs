@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Diplom.Classess;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -74,68 +75,19 @@ namespace Diplom
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtLoginOrEmail.Text) || txtLoginOrEmail.Text == "Введите логин или почту" ||
-                string.IsNullOrWhiteSpace(txtSecret.Text) || txtSecret.Text == "Введите секретное слово" ||
-                string.IsNullOrWhiteSpace(txtPassword_1.Text) || txtPassword_1.Text == "Введите новый пароль" ||
-                string.IsNullOrWhiteSpace(txtPassword_2.Text) || txtPassword_2.Text == "Повторите новый пароль")
+            if (Validator.ValidatePasswordReset(txtLoginOrEmail.Text, txtSecret.Text, txtPassword_1.Text, txtPassword_2.Text))
             {
-                MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK);
-                return;
+                try
+                {
+                    Database.ResetPassword(txtLoginOrEmail, txtSecret, txtPassword_1);
+                    MessageBox.Show("Пароль успешно изменен!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка изменения пароля: " + ex.Message);
+                }
             }
-
-            if (!Regex.IsMatch(txtLoginOrEmail.Text, "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$") &&
-                !Regex.IsMatch(txtLoginOrEmail.Text, "^[a-zA-Z]+$"))
-            {
-                MessageBox.Show("Некорректный логин или почта", "Ошибка", MessageBoxButtons.OK);
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtPassword_1.Text) || txtPassword_1.Text == "Введите пароль")
-            {
-                MessageBox.Show("Введите новый пароль", "Ошибка", MessageBoxButtons.OK);
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtPassword_2.Text) || txtPassword_2.Text == "Повторите пароль")
-            {
-                MessageBox.Show("Повторите новый пароль", "Ошибка", MessageBoxButtons.OK);
-                return;
-            }
-
-            if (txtPassword_1.Text != txtPassword_2.Text)
-            {
-                MessageBox.Show("Пароли не совпадают", "Ошибка", MessageBoxButtons.OK);
-                return;
-            }
-
-            if (txtPassword_1.Text.Any(Char.IsWhiteSpace))
-            {
-                MessageBox.Show("Пароль не может содержать пробелы", "Ошибка", MessageBoxButtons.OK);
-                return;
-            }
-
-            if (!Regex.IsMatch(txtPassword_1.Text, @"^[a-zA-Z0-9]+$"))
-            {
-                MessageBox.Show("Пароль может содержать только латинские буквы и цифры", "Ошибка", MessageBoxButtons.OK);
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtSecret.Text) || txtSecret.Text == "Введите секретное слово")
-            {
-                MessageBox.Show("Введите секретное слово", "Ошибка", MessageBoxButtons.OK);
-                return;
-            }
-
-            try
-            {
-                Database.ResetPassword(txtLoginOrEmail, txtSecret, txtPassword_1);
-                MessageBox.Show("Пароль успешно изменен!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ошибка изменения пароля: " + ex.Message);
-            }
-
         }
+
     }
 }

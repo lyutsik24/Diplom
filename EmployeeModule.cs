@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Diplom.Classess;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -88,54 +89,70 @@ namespace Diplom
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            int employeeId = Convert.ToInt32(pcode.Text);
-            string LastName = txtLastName.Text;
-            string FirstName = txtFirstName.Text;
-            string MiddleName = txtMiddleName.Text; 
-            int gender = (int)cmbGender.SelectedValue;
-            DateTime dateOfBirth = dtpBirth.Value;
-            int department = (int)cmbDepartment.SelectedValue;
-            int position = (int)cmbPosition.SelectedValue;
-            DateTime hireDate = dtpHire.Value;
-            string address = txtAddress.Text;
-            int education = (int)cmbEducation.SelectedValue;
-
-            bool success = Database.UpdateEmployee(employeeId, LastName, FirstName, MiddleName, gender, dateOfBirth, department, position, hireDate, address, education);
-
-            if (success)
+            if (Validator.ValidateInputEmployee(txtLastName.Text, txtFirstName.Text, txtMiddleName.Text, cmbGender.SelectedValue, cmbDepartment.SelectedValue, cmbPosition.SelectedValue, cmbEducation.SelectedValue))
             {
-                MessageBox.Show("Данные успешно обновлены.", "Обновление данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Database.FillDataGridViewEmployees(employeeList.dgvEmployees);
-            }
-            else
-            {
-                MessageBox.Show("Ошибка при обновлении данных.", "Обновление данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DialogResult result = MessageBox.Show("Вы уверены, что хотите обновить данные?", "Подтверждение обновления данных", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    int employeeId = Convert.ToInt32(pcode.Text);
+                    string lastName = txtLastName.Text;
+                    string firstName = txtFirstName.Text;
+                    string middleName = txtMiddleName.Text;
+                    int gender = (int)cmbGender.SelectedValue;
+                    DateTime dateOfBirth = dtpBirth.Value;
+                    int department = (int)cmbDepartment.SelectedValue;
+                    int position = (int)cmbPosition.SelectedValue;
+                    DateTime hireDate = dtpHire.Value;
+                    string address = txtAddress.Text;
+                    int education = (int)cmbEducation.SelectedValue;
+
+                    bool success = Database.UpdateEmployee(employeeId, lastName, firstName, middleName, gender, dateOfBirth, department, position, hireDate, address, education);
+
+                    if (success)
+                    {
+                        MessageBox.Show("Данные успешно обновлены.", "Обновление данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Database.FillDataGridViewEmployees(employeeList.dgvEmployees);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ошибка при обновлении данных.", "Обновление данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            string LastName = txtLastName.Text;
-            string FirstName = txtFirstName.Text;
-            string MiddleName = txtMiddleName.Text;
-            int gender = (int)cmbGender.SelectedValue;
-            DateTime dateOfBirth = dtpBirth.Value;
-            int department = (int)cmbDepartment.SelectedValue;
-            int position = (int)cmbPosition.SelectedValue;
-            DateTime hireDate = dtpHire.Value;
-            string address = txtAddress.Text;
-            int education = (int)cmbEducation.SelectedValue;
-
-            bool success = Database.InsertEmployee(LastName, FirstName, MiddleName, gender, dateOfBirth, department, position, hireDate, address, education);
-
-            if (success)
+            if (Validator.ValidateInputEmployee(txtLastName.Text, txtFirstName.Text, txtMiddleName.Text, cmbGender.SelectedValue, cmbDepartment.SelectedValue, cmbPosition.SelectedValue, cmbEducation.SelectedValue))
             {
-                MessageBox.Show("Данные успешно добавлены.", "Добавление данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Database.FillDataGridViewEmployees(employeeList.dgvEmployees);
-            }
-            else
-            {
-                MessageBox.Show("Ошибка при добавлении данных.", "Добавление данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DialogResult result = MessageBox.Show("Вы уверены, что хотите добавить данные?", "Подтверждение добавления данных", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    string lastName = txtLastName.Text;
+                    string firstName = txtFirstName.Text;
+                    string middleName = txtMiddleName.Text;
+                    int gender = (int)cmbGender.SelectedValue;
+                    DateTime dateOfBirth = dtpBirth.Value;
+                    int department = (int)cmbDepartment.SelectedValue;
+                    int position = (int)cmbPosition.SelectedValue;
+                    DateTime hireDate = dtpHire.Value;
+                    string address = txtAddress.Text;
+                    int education = (int)cmbEducation.SelectedValue;
+
+                    bool success = Database.InsertEmployee(lastName, firstName, middleName, gender, dateOfBirth, department, position, hireDate, address, education);
+
+                    if (success)
+                    {
+                        MessageBox.Show("Данные успешно добавлены.", "Добавление данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Database.FillDataGridViewEmployees(employeeList.dgvEmployees);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ошибка при добавлении данных.", "Добавление данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
     }

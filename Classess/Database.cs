@@ -51,21 +51,6 @@ namespace Diplom
 
         public static void Registration(TextBox txtFullName, TextBox txtLogin, TextBox txtEmail, TextBox txtPassword_1, TextBox txtSecret)
         {
-            if (IsLoginExists(txtLogin.Text))
-            {
-                throw new Exception("Данный логин уже занят.");
-            }
-
-            if (IsEmailExists(txtEmail.Text))
-            {
-                throw new Exception("Данный адрес электронной почты уже занят.");
-            }
-
-            if (txtPassword_1.Text.Length < 8)
-            {
-                throw new Exception("Пароль должен состоять минимум из 8 символов.");
-            }
-
             string hashedPassword = HashHelper.HashPassword(txtPassword_1.Text);
             string hashedSecret = HashHelper.HashSecretWord(txtSecret.Text);
 
@@ -164,7 +149,7 @@ namespace Diplom
             }
         }
 
-        private static bool IsLoginExists(string login)
+        public static bool IsLoginExists(string login)
         {
             using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
             {
@@ -179,7 +164,7 @@ namespace Diplom
             }
         }
 
-        private static bool IsEmailExists(string email)
+        public static bool IsEmailExists(string email)
         {
             using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
             {
@@ -196,19 +181,6 @@ namespace Diplom
 
         public static void ResetPassword(TextBox loginOrEmail, TextBox secretWord, TextBox newPassword)
         {
-            if (!IsUserExists(loginOrEmail.Text))
-            {
-                throw new Exception("Пользователь с таким логином или электронной почтой не найден.");
-            }
-            if (!IsSecretWordCorrect(loginOrEmail.Text, secretWord.Text))
-            {
-                throw new Exception("Неверное секретное слово.");
-            }
-            if (newPassword.Text.Length < 8)
-            {
-                throw new Exception("Пароль должен состоять минимум из 8 символов.");
-            }
-
             string hashedPassword = HashHelper.HashPassword(newPassword.Text);
 
             using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
@@ -239,7 +211,7 @@ namespace Diplom
             }
         }
 
-        private static bool IsUserExists(string loginOrEmail)
+        public static bool IsUserExists(string loginOrEmail)
         {
             using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
             {
@@ -266,7 +238,7 @@ namespace Diplom
             }
         }
 
-        private static bool IsSecretWordCorrect(string loginOrEmail, string secretWord)
+        public static bool IsSecretWordCorrect(string loginOrEmail, string secretWord)
         {
             using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
             {
