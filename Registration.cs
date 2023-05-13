@@ -1,7 +1,5 @@
 ﻿using Diplom.Classess;
 using System;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Diplom

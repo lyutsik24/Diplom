@@ -1,7 +1,5 @@
 ﻿using Diplom.Classess;
 using System;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Diplom
@@ -34,7 +32,7 @@ namespace Diplom
             formAuth.Show();
         }
 
-    private void txtPassword_1_Enter(object sender, EventArgs e)
+        private void txtPassword_1_Enter(object sender, EventArgs e)
         {
             txtPassword_1.UseSystemPasswordChar = true;
         }
