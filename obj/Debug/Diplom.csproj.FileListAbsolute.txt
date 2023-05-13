@@ -82,3 +82,5 @@ F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.exe
 F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.pdb
 F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.EmployeeList.resources
 F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.EmployeeModule.resources
+F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.VacationSchedule.resources
+F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.Calendar.resources

@@ -32,7 +32,7 @@
             this.btnSettings = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnCalendar = new System.Windows.Forms.Button();
-            this.btnGraphic = new System.Windows.Forms.Button();
+            this.btnVacationSchedule = new System.Windows.Forms.Button();
             this.btnEmployees = new System.Windows.Forms.Button();
             this.btnUsers = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -56,7 +56,7 @@
             this.pnlButtons.Controls.Add(this.btnSettings);
             this.pnlButtons.Controls.Add(this.btnLogout);
             this.pnlButtons.Controls.Add(this.btnCalendar);
-            this.pnlButtons.Controls.Add(this.btnGraphic);
+            this.pnlButtons.Controls.Add(this.btnVacationSchedule);
             this.pnlButtons.Controls.Add(this.btnEmployees);
             this.pnlButtons.Controls.Add(this.btnUsers);
             this.pnlButtons.Controls.Add(this.panel2);
@@ -115,21 +115,21 @@
             this.btnCalendar.UseVisualStyleBackColor = false;
             this.btnCalendar.Click += new System.EventHandler(this.btnCalendar_Click);
             // 
-            // btnGraphic
+            // btnVacationSchedule
             // 
-            this.btnGraphic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
-            this.btnGraphic.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnGraphic.FlatAppearance.BorderSize = 0;
-            this.btnGraphic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGraphic.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnGraphic.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.btnGraphic.Location = new System.Drawing.Point(0, 228);
-            this.btnGraphic.Name = "btnGraphic";
-            this.btnGraphic.Size = new System.Drawing.Size(186, 42);
-            this.btnGraphic.TabIndex = 21;
-            this.btnGraphic.Text = "График отпусков";
-            this.btnGraphic.UseVisualStyleBackColor = false;
-            this.btnGraphic.Click += new System.EventHandler(this.btnGraphic_Click);
+            this.btnVacationSchedule.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
+            this.btnVacationSchedule.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnVacationSchedule.FlatAppearance.BorderSize = 0;
+            this.btnVacationSchedule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVacationSchedule.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnVacationSchedule.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.btnVacationSchedule.Location = new System.Drawing.Point(0, 228);
+            this.btnVacationSchedule.Name = "btnVacationSchedule";
+            this.btnVacationSchedule.Size = new System.Drawing.Size(186, 42);
+            this.btnVacationSchedule.TabIndex = 21;
+            this.btnVacationSchedule.Text = "График отпусков";
+            this.btnVacationSchedule.UseVisualStyleBackColor = false;
+            this.btnVacationSchedule.Click += new System.EventHandler(this.btnVacationSchedule_Click);
             // 
             // btnEmployees
             // 
@@ -197,6 +197,7 @@
             // 
             // pnlControl
             // 
+            this.pnlControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             this.pnlControl.Controls.Add(this.btnMinimize);
             this.pnlControl.Controls.Add(this.btnMaximize);
             this.pnlControl.Controls.Add(this.btnClose);
@@ -205,6 +206,9 @@
             this.pnlControl.Name = "pnlControl";
             this.pnlControl.Size = new System.Drawing.Size(800, 32);
             this.pnlControl.TabIndex = 24;
+            this.pnlControl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlControl_MouseDown);
+            this.pnlControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlControl_MouseMove);
+            this.pnlControl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlControl_MouseUp);
             // 
             // btnMinimize
             // 
@@ -297,7 +301,7 @@
         private System.Windows.Forms.Button btnMaximize;
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Button btnCalendar;
-        private System.Windows.Forms.Button btnGraphic;
+        private System.Windows.Forms.Button btnVacationSchedule;
         private System.Windows.Forms.Button btnEmployees;
         private System.Windows.Forms.Button btnUsers;
         private System.Windows.Forms.Panel pnlNav;

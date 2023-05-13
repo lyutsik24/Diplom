@@ -1,6 +1,6 @@
 ﻿namespace Diplom
 {
-    partial class UserList
+    partial class VacationSchedule
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -36,11 +35,10 @@
             this.btnUpdate = new System.Windows.Forms.Button();
             this.txtphbSearch = new Diplom.TextBoxWithPlaceholder();
             this.pnlDGV = new System.Windows.Forms.Panel();
-            this.dgvUsers = new System.Windows.Forms.DataGridView();
-            this.timerUpdate = new System.Windows.Forms.Timer(this.components);
+            this.dgvShedule = new System.Windows.Forms.DataGridView();
             this.panel2.SuspendLayout();
             this.pnlDGV.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvShedule)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -50,8 +48,8 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(10, 10);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(780, 52);
-            this.panel2.TabIndex = 3;
+            this.panel2.Size = new System.Drawing.Size(780, 50);
+            this.panel2.TabIndex = 4;
             // 
             // btnUpdate
             // 
@@ -61,11 +59,10 @@
             this.btnUpdate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.btnUpdate.Location = new System.Drawing.Point(0, 8);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(130, 35);
+            this.btnUpdate.Size = new System.Drawing.Size(130, 34);
             this.btnUpdate.TabIndex = 3;
             this.btnUpdate.Text = "Обновить";
             this.btnUpdate.UseVisualStyleBackColor = false;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // txtphbSearch
             // 
@@ -80,97 +77,89 @@
             this.txtphbSearch.PlaceholderText = "Поиск...";
             this.txtphbSearch.Size = new System.Drawing.Size(300, 27);
             this.txtphbSearch.TabIndex = 0;
-            this.txtphbSearch.TextChanged += new System.EventHandler(this.txtphbSearch_TextChanged);
-            this.txtphbSearch.Enter += new System.EventHandler(this.txtphbSearch_Enter);
-            this.txtphbSearch.Leave += new System.EventHandler(this.txtphbSearch_Leave);
             // 
             // pnlDGV
             // 
-            this.pnlDGV.Controls.Add(this.dgvUsers);
+            this.pnlDGV.Controls.Add(this.dgvShedule);
             this.pnlDGV.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlDGV.Location = new System.Drawing.Point(10, 62);
+            this.pnlDGV.Location = new System.Drawing.Point(10, 60);
             this.pnlDGV.Name = "pnlDGV";
-            this.pnlDGV.Size = new System.Drawing.Size(780, 528);
-            this.pnlDGV.TabIndex = 6;
+            this.pnlDGV.Size = new System.Drawing.Size(780, 508);
+            this.pnlDGV.TabIndex = 7;
             // 
-            // dgvUsers
+            // dgvShedule
             // 
-            this.dgvUsers.AllowUserToAddRows = false;
-            this.dgvUsers.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dgvUsers.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.dgvUsers.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvUsers.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.RaisedHorizontal;
-            this.dgvUsers.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvShedule.AllowUserToAddRows = false;
+            this.dgvShedule.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvShedule.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.dgvShedule.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvShedule.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.RaisedHorizontal;
+            this.dgvShedule.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Comic Sans MS", 14.25F);
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvShedule.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvShedule.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Comic Sans MS", 14.25F);
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvUsers.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvUsers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvUsers.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.dgvUsers.Location = new System.Drawing.Point(0, 0);
-            this.dgvUsers.Margin = new System.Windows.Forms.Padding(0, 0, 4, 15);
-            this.dgvUsers.Name = "dgvUsers";
+            this.dgvShedule.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvShedule.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvShedule.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.dgvShedule.Location = new System.Drawing.Point(0, 0);
+            this.dgvShedule.Margin = new System.Windows.Forms.Padding(0, 0, 4, 14);
+            this.dgvShedule.Name = "dgvShedule";
+            this.dgvShedule.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Comic Sans MS", 14.25F);
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvUsers.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvUsers.RowHeadersVisible = false;
-            this.dgvUsers.RowHeadersWidth = 50;
-            this.dgvUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvUsers.Size = new System.Drawing.Size(780, 528);
-            this.dgvUsers.TabIndex = 2;
+            this.dgvShedule.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvShedule.RowHeadersVisible = false;
+            this.dgvShedule.RowHeadersWidth = 50;
+            this.dgvShedule.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvShedule.Size = new System.Drawing.Size(780, 508);
+            this.dgvShedule.TabIndex = 4;
             // 
-            // timerUpdate
-            // 
-            this.timerUpdate.Interval = 300000;
-            this.timerUpdate.Tick += new System.EventHandler(this.timerUpdate_Tick);
-            // 
-            // UserList
+            // VacationSchedule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(800, 600);
+            this.ClientSize = new System.Drawing.Size(800, 578);
             this.Controls.Add(this.pnlDGV);
             this.Controls.Add(this.panel2);
-            this.Font = new System.Drawing.Font("Comic Sans MS", 14.25F);
+            this.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "UserList";
+            this.Name = "VacationSchedule";
             this.Padding = new System.Windows.Forms.Padding(10);
-            this.Text = "UserList";
+            this.Text = "VacationSchedule";
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.pnlDGV.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvShedule)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private TextBoxWithPlaceholder txtphbSearch;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel pnlDGV;
         private System.Windows.Forms.Button btnUpdate;
-        public System.Windows.Forms.DataGridView dgvUsers;
-        private System.Windows.Forms.Timer timerUpdate;
+        private TextBoxWithPlaceholder txtphbSearch;
+        private System.Windows.Forms.Panel pnlDGV;
+        public System.Windows.Forms.DataGridView dgvShedule;
     }
 }

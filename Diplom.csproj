@@ -87,6 +87,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calendar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Calendar.Designer.cs">
+      <DependentUpon>Calendar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VacationSchedule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VacationSchedule.Designer.cs">
+      <DependentUpon>VacationSchedule.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classess\Database.cs" />
     <Compile Include="Authorization.cs">
       <SubType>Form</SubType>
@@ -140,6 +152,12 @@
     </Compile>
     <EmbeddedResource Include="Authorization.resx">
       <DependentUpon>Authorization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Calendar.resx">
+      <DependentUpon>Calendar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VacationSchedule.resx">
+      <DependentUpon>VacationSchedule.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EmployeeList.resx">
       <DependentUpon>EmployeeList.cs</DependentUpon>

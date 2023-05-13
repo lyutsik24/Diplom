@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Diplom.Classess;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
@@ -108,6 +110,17 @@ namespace Diplom
                 string address = selectedRow.Cells["Адрес"].Value.ToString();
                 employeeModule.cmbEducation.SelectedIndex = employeeModule.cmbEducation.FindStringExact(selectedRow.Cells["Образование"].Value.ToString());
 
+                // Проверяем роль пользователя
+                if (User.UserRole == "Пользователь")
+                {
+                    // Ограничиваем редактирование данных для пользователя
+                    if (employeeId != User.EmployeeID)
+                    {
+                        MessageBox.Show("Вы можете редактировать только свои личные данные.");
+                        return;
+                    }
+                }
+
                 employeeModule.SetEmployeeData(employeeId, lastName, firstName, middleName, dateOfBirth, hireDate, address);
 
                 employeeModule.btnInsert.Visible = false;
@@ -131,6 +144,40 @@ namespace Diplom
         private void UpdateDataGridView()
         {
             Database.FillDataGridViewEmployees(dgvEmployees);
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DataGridViewSelectedRowCollection selectedRows = dgvEmployees.SelectedRows;
+
+            if (selectedRows.Count > 0)
+            {
+                List<int> employeeIds = new List<int>();
+
+                foreach (DataGridViewRow row in selectedRows)
+                {
+                    int employeeId = Convert.ToInt32(row.Cells["№"].Value);
+                    employeeIds.Add(employeeId);
+                }
+
+                bool confirmation = MessageBox.Show("Вы уверены, что хотите удалить выбранные записи?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+
+                if (confirmation)
+                {
+                    bool deletionResult = Database.DeleteEmployees(employeeIds);
+
+                    if (deletionResult)
+                    {
+                        MessageBox.Show("Удаление выполнено успешно.");
+
+                        Database.FillDataGridViewEmployees(dgvEmployees);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Удаление отменено.");
+                    }
+                }
+            }
         }
     }
 }

@@ -1,6 +1,10 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Diplom.Classess;
+using MySql.Data.MySqlClient;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Diplom
@@ -13,11 +17,11 @@ namespace Diplom
             using (var cm = new MySqlCommand())
             {
                 cm.Connection = cn;
-                cm.CommandText = @"SELECT CONCAT(e.last_name, ' ', e.first_name, ' ', e.middle_name) AS full_name, r.role_name AS role, u.id AS user_id
-                                   FROM users u
-                                   JOIN roles r ON u.role_id = r.id
-                                   JOIN employees e ON u.employee_id = e.id
-                                   WHERE (u.login = @p_login OR u.email = @p_login) AND u.password = @p_password";
+                cm.CommandText = @"SELECT CONCAT(e.last_name, ' ', e.first_name, ' ', e.middle_name) AS full_name, r.role_name AS role, u.user_id, u.id_employee
+                           FROM users u
+                           JOIN roles r ON u.id_role = r.role_id
+                           JOIN employees e ON u.id_employee = e.employee_id
+                           WHERE (u.login = @p_login OR u.email = @p_login) AND u.password = @p_password";
 
                 cm.Parameters.AddWithValue("@p_login", txtLogin.Text);
                 cm.Parameters.AddWithValue("@p_password", txtPassword.Text);
@@ -37,6 +41,7 @@ namespace Diplom
                     User.UserID = Convert.ToInt32(dt.Rows[0]["user_id"]);
                     User.UserFullName = dt.Rows[0]["full_name"].ToString();
                     User.UserRole = dt.Rows[0]["role"].ToString();
+                    User.EmployeeID = Convert.ToInt32(dt.Rows[0]["id_employee"]);
                     return true;
                 }
                 finally
@@ -54,7 +59,7 @@ namespace Diplom
 
             using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
             {
-                string query = @"INSERT INTO users (login, password, email, employee_id, secret_word)
+                string query = @"INSERT INTO users (login, password, email, id_employee, secret_word)
                                  VALUES (@p_login, @p_password, @p_email, @p_employee, @p_secretword)";
 
                 using (MySqlCommand cm = new MySqlCommand(query, cn))
@@ -108,7 +113,12 @@ namespace Diplom
                 {
                     cn.Open();
 
-                    string accountQuery = @"SELECT COUNT(*) FROM users WHERE employee_id IN (SELECT id FROM employees WHERE first_name = @p_first_name AND middle_name = @p_middle_name AND last_name = @p_last_name)";
+                    string accountQuery = @"SELECT COUNT(*) 
+                                            FROM users 
+                                            INNER JOIN employees ON users.id_employee = employees.employee_id 
+                                            WHERE employees.first_name = @p_first_name 
+                                            AND employees.middle_name = @p_middle_name 
+                                            AND employees.last_name = @p_last_name";
                     using (MySqlCommand accountCmd = new MySqlCommand(accountQuery, cn))
                     {
                         accountCmd.Parameters.AddWithValue("@p_first_name", firstName);
@@ -123,7 +133,11 @@ namespace Diplom
                         }
                     }
 
-                    string query = @"SELECT id FROM employees WHERE first_name = @p_first_name AND middle_name = @p_middle_name AND last_name = @p_last_name";
+                    string query = @"SELECT employee_id 
+                                     FROM employees 
+                                     WHERE first_name = @p_first_name 
+                                     AND middle_name = @p_middle_name 
+                                     AND last_name = @p_last_name";
                     using (MySqlCommand cm = new MySqlCommand(query, cn))
                     {
                         cm.Parameters.AddWithValue("@p_first_name", firstName);
@@ -151,13 +165,22 @@ namespace Diplom
         {
             using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
             {
-                string query = "SELECT COUNT(*) FROM users WHERE login = @p_login";
+                string query = @"SELECT COUNT(*) 
+                                 FROM users 
+                                 WHERE login = @p_login";
                 using (MySqlCommand cm = new MySqlCommand(query, cn))
                 {
                     cm.Parameters.AddWithValue("@p_login", login);
-                    cn.Open();
-                    int count = Convert.ToInt32(cm.ExecuteScalar());
-                    return count > 0;
+                    try
+                    {
+                        cn.Open();
+                        int count = Convert.ToInt32(cm.ExecuteScalar());
+                        return count > 0;
+                    }
+                    catch (MySqlException ex)
+                    {
+                        throw new Exception($"Ошибка при выполнении запроса. {ex.Message}");
+                    }
                 }
             }
         }
@@ -166,13 +189,22 @@ namespace Diplom
         {
             using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
             {
-                string query = "SELECT COUNT(*) FROM users WHERE email = @p_email";
+                string query = @"SELECT COUNT(*) 
+                                 FROM users 
+                                 WHERE email = @p_email";
                 using (MySqlCommand cm = new MySqlCommand(query, cn))
                 {
                     cm.Parameters.AddWithValue("@p_email", email);
-                    cn.Open();
-                    int count = Convert.ToInt32(cm.ExecuteScalar());
-                    return count > 0;
+                    try
+                    {
+                        cn.Open();
+                        int count = Convert.ToInt32(cm.ExecuteScalar());
+                        return count > 0;
+                    }
+                    catch (MySqlException ex)
+                    {
+                        throw new Exception($"Ошибка при выполнении запроса. {ex.Message}");
+                    }
                 }
             }
         }
@@ -183,7 +215,9 @@ namespace Diplom
 
             using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
             {
-                string query = @"UPDATE users SET password = @p_password WHERE login = @p_login OR email = @p_email";
+                string query = @"UPDATE users 
+                                 SET password = @p_password 
+                                 WHERE login = @p_login OR email = @p_email";
 
                 using (MySqlCommand cm = new MySqlCommand(query, cn))
                 {
@@ -213,7 +247,9 @@ namespace Diplom
         {
             using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
             {
-                string query = @"SELECT COUNT(*) FROM users WHERE login = @p_login OR email = @p_email";
+                string query = @"SELECT COUNT(*) 
+                                 FROM users 
+                                 WHERE login = @p_login OR email = @p_email";
 
                 using (MySqlCommand cm = new MySqlCommand(query, cn))
                 {
@@ -240,7 +276,9 @@ namespace Diplom
         {
             using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
             {
-                string query = @"SELECT secret_word FROM users WHERE login = @p_login OR email = @p_email";
+                string query = @"SELECT secret_word 
+                                 FROM users 
+                                 WHERE login = @p_login OR email = @p_email";
 
                 using (MySqlCommand cm = new MySqlCommand(query, cn))
                 {
@@ -265,12 +303,12 @@ namespace Diplom
 
         public static void FillDataGridViewUsers(DataGridView dataGridView)
         {
-            string query = @"SELECT u.id AS '№', u.login AS 'Логин', u.email AS 'Электронная почта', u.phone_number AS 'Номер телефона',
+            string query = @"SELECT u.user_id AS '№', u.login AS 'Логин', u.email AS 'Электронная почта', u.phone_number AS 'Номер телефона',
                              CONCAT(e.last_name, ' ', e.first_name, ' ', e.middle_name) AS 'Полное имя', r.role_name
                              FROM users u
-                             INNER JOIN employees e ON u.employee_id = e.id
-                             INNER JOIN roles r ON u.role_id = r.id
-                             ORDER BY u.id";
+                             INNER JOIN employees e ON u.id_employee = e.employee_id
+                             INNER JOIN roles r ON u.id_role = r.role_id
+                             ORDER BY u.user_id";
 
             using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
             {
@@ -318,8 +356,8 @@ namespace Diplom
                     foreach (DataRow row in changes.Rows)
                     {
                         da.UpdateCommand.CommandText = @"UPDATE users
-                                                 SET role_id = (SELECT id FROM roles WHERE role_name = @role_name)
-                                                 WHERE id = @id";
+                                                         SET id_role = (SELECT role_id FROM roles WHERE role_name = @role_name)
+                                                         WHERE user_id = @id";
 
                         da.UpdateCommand.Parameters.Clear();
                         da.UpdateCommand.Parameters.Add("@role_name", MySqlDbType.VarChar, 50).Value = row["role_name"];
@@ -335,11 +373,11 @@ namespace Diplom
 
         public static void FillDataGridViewEmployees(DataGridView dataGridView)
         {
-            string query = @"SELECT e.id AS '№',
+            string query = @"SELECT e.employee_id AS '№',
                                     e.last_name AS 'Фамилия',
                                     e.first_name AS 'Имя',
                                     e.middle_name AS 'Отчество',
-                                    g.gender AS 'Пол',
+                                    g.gender_name AS 'Пол',
                                     e.date_of_birth AS 'Дата рождения',
                                     d.department_name AS 'Отдел',
                                     p.position_name AS 'Должность',
@@ -347,11 +385,11 @@ namespace Diplom
                                     e.address AS 'Адрес',
                                     ed.education_name AS 'Образование'
                              FROM employees e
-                             INNER JOIN genders g ON e.gender_id = g.id
-                             INNER JOIN departments d ON e.department_id = d.id
-                             INNER JOIN positions p ON e.position_id = p.id
-                             INNER JOIN educations ed ON e.education_id = ed.id
-                             ORDER BY e.id";
+                             INNER JOIN genders g ON e.id_gender = g.gender_id
+                             INNER JOIN departments d ON e.id_department = d.department_id
+                             INNER JOIN positions p ON e.id_position = p.position_id
+                             INNER JOIN educations ed ON e.id_education = ed.education_id
+                             ORDER BY e.employee_id";
 
             using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
             {
@@ -454,14 +492,14 @@ namespace Diplom
                                      SET last_name = @LastName, 
                                          first_name = @FirstName, 
                                          middle_name = @MiddleName, 
-                                         gender_id = @GenderId, 
+                                         id_gender = @GenderId, 
                                          date_of_birth = @DateOfBirth, 
-                                         department_id = @DepartmentId, 
-                                         position_id = @PositionId, 
+                                         id_department = @DepartmentId, 
+                                         id_position = @PositionId, 
                                          hire_date = @HireDate, 
                                          address = @Address, 
-                                         education_id = @EducationId 
-                                     WHERE id = @EmployeeId";
+                                         id_education = @EducationId 
+                                     WHERE employee_id = @EmployeeId";
 
                     MySqlCommand command = new MySqlCommand(query, cn);
                     command.Parameters.AddWithValue("@LastName", LastName);
@@ -503,9 +541,10 @@ namespace Diplom
                     cn.Open();
 
                     string query = @"INSERT INTO employees 
-                                        (last_name, first_name, middle_name, gender_id, date_of_birth, department_id, position_id, hire_date, address, education_id)
+                                        (last_name, first_name, middle_name, id_gender, date_of_birth, id_department, id_position, hire_date, address, id_education)
                                      VALUES 
                                         (@LastName, @FirstName, @MiddleName, @GenderId, @DateOfBirth, @DepartmentId, @PositionId, @HireDate, @Address, @EducationId)";
+
 
                     MySqlCommand command = new MySqlCommand(query, cn);
                     command.Parameters.AddWithValue("@LastName", LastName);
@@ -533,6 +572,45 @@ namespace Diplom
             }
 
             return success;
+        }
+
+        public static bool DeleteEmployees(List<int> employeeIds)
+        {
+            string deleteQuery = "DELETE FROM employees WHERE employee_id IN (" + string.Join(",", employeeIds) + ")";
+
+            using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
+            {
+                using (MySqlCommand command = new MySqlCommand(deleteQuery, cn))
+                {
+                    cn.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+
+            return true;
+        }
+
+        public static void FillDataGridViewVacations(DataGridView dataGridView)
+        {
+            string query = @"SELECT v.vacation_id AS '№', CONCAT(e.last_name, ' ', e.first_name, ' ', e.middle_name) AS 'Сотрудник', v.start_date AS 'Дата начала', v.duration AS 'Продолжительность (дни)', t.name AS 'Тип отпуска', v.end_date AS 'Дата окончания'
+                             FROM vacations v
+                             INNER JOIN employees e ON v.id_employee = e.employee_id
+                             INNER JOIN vacation_types t ON v.id_vacation_type = t.vacation_type_id
+                             ORDER BY v.vacation_id";
+
+            using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
+            {
+                using (MySqlDataAdapter da = new MySqlDataAdapter(query, cn))
+                {
+                    DataSet ds = new DataSet();
+
+                    da.Fill(ds);
+
+                    DataTable dt = ds.Tables[0];
+
+                    EmployeeList.SetupDataGridView(dataGridView, dt);
+                }
+            }
         }
     }
 }

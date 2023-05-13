@@ -36,8 +36,8 @@ namespace Diplom
         {
             DataTable genderData = Database.GetGenders();
             cmbGender.DataSource = genderData;
-            cmbGender.DisplayMember = "gender";
-            cmbGender.ValueMember = "id";
+            cmbGender.DisplayMember = "gender_name";
+            cmbGender.ValueMember = "gender_id";
         }
 
         private void FillEducationComboBox()
@@ -45,7 +45,7 @@ namespace Diplom
             DataTable educationData = Database.GetEducations();
             cmbEducation.DataSource = educationData;
             cmbEducation.DisplayMember = "education_name";
-            cmbEducation.ValueMember = "id";
+            cmbEducation.ValueMember = "education_id";
         }
 
         private void FillDepartmentComboBox()
@@ -53,7 +53,7 @@ namespace Diplom
             DataTable departmentData = Database.GetDepartments();
             cmbDepartment.DataSource = departmentData;
             cmbDepartment.DisplayMember = "department_name";
-            cmbDepartment.ValueMember = "id";
+            cmbDepartment.ValueMember = "department_id";
         }
 
         private void FillPositionComboBox()
@@ -61,7 +61,7 @@ namespace Diplom
             DataTable positionData = Database.GetPositions();
             cmbPosition.DataSource = positionData;
             cmbPosition.DisplayMember = "position_name";
-            cmbPosition.ValueMember = "id";
+            cmbPosition.ValueMember = "position_id";
         }
 
         private void cmbDepartment_SelectedIndexChanged(object sender, EventArgs e)
@@ -73,7 +73,7 @@ namespace Diplom
 
             cmbPosition.DataSource = positionView;
             cmbPosition.DisplayMember = "position_name";
-            cmbPosition.ValueMember = "id";
+            cmbPosition.ValueMember = "position_id";
         }
 
         private void btnBack_Click(object sender, EventArgs e)

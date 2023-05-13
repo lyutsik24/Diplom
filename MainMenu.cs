@@ -8,6 +8,9 @@ namespace Diplom
     {
         private Form activeForm = null;
 
+        private bool isDragging = false;
+        private Point dragStartPosition;
+
         public MainMenu()
         {
             InitializeComponent();
@@ -15,6 +18,11 @@ namespace Diplom
             UpdateNavigation(btnUsers);
 
             lblFullName.Text = $"{User.UserFullName}\n({User.UserRole})";
+
+            if (User.UserRole == "Пользователь")
+            {
+                btnUsers.Visible = false;
+            }
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -56,14 +64,16 @@ namespace Diplom
             OpenChildForm(new EmployeeList(this));
         }
 
-        private void btnGraphic_Click(object sender, EventArgs e)
+        private void btnVacationSchedule_Click(object sender, EventArgs e)
         {
-            UpdateNavigation(btnGraphic);
+            UpdateNavigation(btnVacationSchedule);
+            OpenChildForm(new VacationSchedule(this));
         }
 
         private void btnCalendar_Click(object sender, EventArgs e)
         {
             UpdateNavigation(btnCalendar);
+            OpenChildForm(new Calendar(this));
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
@@ -77,7 +87,7 @@ namespace Diplom
             pnlNav.Top = button.Top;
             pnlNav.Left = button.Left;
 
-            btnUsers.BackColor = btnEmployees.BackColor = btnGraphic.BackColor = btnCalendar.BackColor = btnSettings.BackColor = Color.FromArgb(24, 30, 54);
+            btnUsers.BackColor = btnEmployees.BackColor = btnVacationSchedule.BackColor = btnCalendar.BackColor = btnSettings.BackColor = Color.FromArgb(24, 30, 54);
             button.BackColor = Color.FromArgb(46, 51, 73);
         }
 
@@ -95,5 +105,24 @@ namespace Diplom
             childForm.Show();
         }
 
+        private void pnlControl_MouseDown(object sender, MouseEventArgs e)
+        {
+            isDragging = true;
+            dragStartPosition = new Point(e.X, e.Y);
+        }
+
+        private void pnlControl_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDragging)
+            {
+                Point currentPosition = PointToScreen(e.Location);
+                Location = new Point(currentPosition.X - dragStartPosition.X, currentPosition.Y - dragStartPosition.Y);
+            }
+        }
+
+        private void pnlControl_MouseUp(object sender, MouseEventArgs e)
+        {
+            isDragging = false;
+        }
     }
 }
