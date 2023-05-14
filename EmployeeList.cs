@@ -10,6 +10,7 @@ namespace Diplom
     public partial class EmployeeList : Form
     {
         private MainMenu mainMenu;
+        //хуй
 
         public EmployeeList(MainMenu form)
         {
