@@ -18,10 +18,10 @@ namespace Diplom
             {
                 cm.Connection = cn;
                 cm.CommandText = @"SELECT CONCAT(e.last_name, ' ', e.first_name, ' ', e.middle_name) AS full_name, r.role_name AS role, u.user_id, u.id_employee
-                           FROM users u
-                           JOIN roles r ON u.id_role = r.role_id
-                           JOIN employees e ON u.id_employee = e.employee_id
-                           WHERE (u.login = @p_login OR u.email = @p_login) AND u.password = @p_password";
+                                   FROM users u
+                                   JOIN roles r ON u.id_role = r.role_id
+                                   JOIN employees e ON u.id_employee = e.employee_id
+                                   WHERE (u.login = @p_login OR u.email = @p_login) AND u.password = @p_password";
 
                 cm.Parameters.AddWithValue("@p_login", txtLogin.Text);
                 cm.Parameters.AddWithValue("@p_password", txtPassword.Text);

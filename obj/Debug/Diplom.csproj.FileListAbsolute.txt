@@ -84,3 +84,9 @@ F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.EmployeeList.resources
 F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.EmployeeModule.resources
 F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.VacationSchedule.resources
 F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.Calendar.resources
+F:\Учеба\Diplom\Diplom\bin\Debug\EPPlus.dll
+F:\Учеба\Diplom\Diplom\bin\Debug\EPPlus.Interfaces.dll
+F:\Учеба\Diplom\Diplom\bin\Debug\EPPlus.System.Drawing.dll
+F:\Учеба\Diplom\Diplom\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
+F:\Учеба\Diplom\Diplom\bin\Debug\EPPlus.xml
+F:\Учеба\Diplom\Diplom\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
