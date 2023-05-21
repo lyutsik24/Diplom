@@ -99,7 +99,7 @@ namespace Diplom
             // label1
             // 
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.label1.Location = new System.Drawing.Point(5, 32);
             this.label1.Name = "label1";
@@ -112,24 +112,24 @@ namespace Diplom
             // 
             this.txtLoginOrEmail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(79)))), ((int)(((byte)(99)))));
             this.txtLoginOrEmail.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtLoginOrEmail.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLoginOrEmail.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtLoginOrEmail.Location = new System.Drawing.Point(67, 108);
             this.txtLoginOrEmail.Name = "txtLoginOrEmail";
             this.txtLoginOrEmail.PlaceholderColor = System.Drawing.Color.Gray;
             this.txtLoginOrEmail.PlaceholderText = "Введите логин или почту";
-            this.txtLoginOrEmail.Size = new System.Drawing.Size(472, 27);
+            this.txtLoginOrEmail.Size = new System.Drawing.Size(472, 22);
             this.txtLoginOrEmail.TabIndex = 1;
             // 
             // txtPassword_2
             // 
             this.txtPassword_2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(79)))), ((int)(((byte)(99)))));
             this.txtPassword_2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtPassword_2.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassword_2.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtPassword_2.Location = new System.Drawing.Point(67, 279);
             this.txtPassword_2.Name = "txtPassword_2";
             this.txtPassword_2.PlaceholderColor = System.Drawing.Color.Gray;
             this.txtPassword_2.PlaceholderText = "Повторите новый пароль";
-            this.txtPassword_2.Size = new System.Drawing.Size(472, 27);
+            this.txtPassword_2.Size = new System.Drawing.Size(472, 22);
             this.txtPassword_2.TabIndex = 4;
             this.txtPassword_2.Enter += new System.EventHandler(this.txtPassword_2_Enter);
             this.txtPassword_2.Leave += new System.EventHandler(this.txtPassword_2_Leave);
@@ -138,12 +138,12 @@ namespace Diplom
             // 
             this.txtSecret.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(79)))), ((int)(((byte)(99)))));
             this.txtSecret.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtSecret.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSecret.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtSecret.Location = new System.Drawing.Point(67, 165);
             this.txtSecret.Name = "txtSecret";
             this.txtSecret.PlaceholderColor = System.Drawing.Color.Gray;
             this.txtSecret.PlaceholderText = "Введите секретное слово";
-            this.txtSecret.Size = new System.Drawing.Size(472, 27);
+            this.txtSecret.Size = new System.Drawing.Size(472, 22);
             this.txtSecret.TabIndex = 2;
             this.txtSecret.Enter += new System.EventHandler(this.txtSecret_Enter);
             this.txtSecret.Leave += new System.EventHandler(this.txtSecret_Leave);
@@ -152,12 +152,12 @@ namespace Diplom
             // 
             this.txtPassword_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(79)))), ((int)(((byte)(99)))));
             this.txtPassword_1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtPassword_1.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassword_1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtPassword_1.Location = new System.Drawing.Point(67, 222);
             this.txtPassword_1.Name = "txtPassword_1";
             this.txtPassword_1.PlaceholderColor = System.Drawing.Color.Gray;
             this.txtPassword_1.PlaceholderText = "Введите новый пароль";
-            this.txtPassword_1.Size = new System.Drawing.Size(472, 27);
+            this.txtPassword_1.Size = new System.Drawing.Size(472, 22);
             this.txtPassword_1.TabIndex = 3;
             this.txtPassword_1.Enter += new System.EventHandler(this.txtPassword_1_Enter);
             this.txtPassword_1.Leave += new System.EventHandler(this.txtPassword_1_Leave);
@@ -167,6 +167,7 @@ namespace Diplom
             this.btnBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             this.btnBack.FlatAppearance.BorderSize = 0;
             this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBack.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnBack.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.btnBack.Location = new System.Drawing.Point(389, 336);
             this.btnBack.Name = "btnBack";
@@ -181,6 +182,7 @@ namespace Diplom
             this.btnReset.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             this.btnReset.FlatAppearance.BorderSize = 0;
             this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReset.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnReset.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.btnReset.Location = new System.Drawing.Point(67, 336);
             this.btnReset.Name = "btnReset";

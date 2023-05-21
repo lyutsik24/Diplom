@@ -107,6 +107,7 @@ namespace Diplom
                     {
                         MessageBox.Show("Данные успешно обновлены.", "Обновление данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         Database.FillDataGridViewEmployees(employeeList.dgvEmployees);
+                        this.Close();
                     }
                     else
                     {

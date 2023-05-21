@@ -35,5 +35,4 @@ public static class HashHelper
         StringComparer comparer = StringComparer.OrdinalIgnoreCase;
         return comparer.Compare(hashOfInput, hash) == 0;
     }
-
 }

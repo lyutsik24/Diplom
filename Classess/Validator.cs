@@ -97,19 +97,22 @@ namespace Diplom.Classess
                 return false;
             }
 
-            if (Database.IsLoginExists(login))
+            if (!Database.IsLoginExists(login))
             {
-                throw new Exception("Данный логин уже занят.");
+                MessageBox.Show("Данный логин уже занят.", "Ошибка", MessageBoxButtons.OK);
+                return false;
             }
 
-            if (Database.IsEmailExists(email))
+            if (!Database.IsEmailExists(email))
             {
-                throw new Exception("Данный адрес электронной почты уже занят.");
+                MessageBox.Show("Данный адрес электронной почты уже занят.", "Ошибка", MessageBoxButtons.OK);
+                return false;
             }
 
             if (password1.Length < 8)
             {
-                throw new Exception("Пароль должен состоять минимум из 8 символов.");
+                MessageBox.Show("Пароль должен состоять минимум из 8 символов.", "Ошибка", MessageBoxButtons.OK);
+                return false;
             }
 
             return true;
@@ -165,20 +168,26 @@ namespace Diplom.Classess
                 return false;
             }
 
-            if (Database.IsUserExists(loginOrEmail))
+            if (!Database.IsUserExists(loginOrEmail))
             {
-                throw new Exception("Пользователь с таким логином или электронной почтой не найден.");
+                MessageBox.Show("Пользователь с таким логином или электронной почтой не найден.", "Ошибка", MessageBoxButtons.OK);
+                return false;
             }
-            if (Database.IsSecretWordCorrect(loginOrEmail, secret))
+
+            if (!Database.IsSecretWordCorrect(loginOrEmail, secret))
             {
-                throw new Exception("Неверное секретное слово.");
+                MessageBox.Show("Неверное секретное слово.", "Ошибка", MessageBoxButtons.OK);
+                return false;
             }
+
             if (password1.Length < 8)
             {
-                throw new Exception("Пароль должен состоять минимум из 8 символов.");
+                MessageBox.Show("Пароль должен состоять минимум из 8 символов.", "Ошибка", MessageBoxButtons.OK);
+                return false;
             }
 
             return true;
         }
+
     }
 }

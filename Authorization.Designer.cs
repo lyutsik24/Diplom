@@ -82,6 +82,7 @@ namespace Diplom
             this.lLblResetPassword.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             this.lLblResetPassword.DisabledLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.lLblResetPassword.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lLblResetPassword.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lLblResetPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.lLblResetPassword.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.lLblResetPassword.Location = new System.Drawing.Point(0, 350);
@@ -96,7 +97,7 @@ namespace Diplom
             // label1
             // 
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.label1.Location = new System.Drawing.Point(0, 32);
             this.label1.Name = "label1";
@@ -153,10 +154,11 @@ namespace Diplom
             // 
             this.chbShowPassword.AutoSize = true;
             this.chbShowPassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chbShowPassword.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.chbShowPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.chbShowPassword.Location = new System.Drawing.Point(134, 239);
             this.chbShowPassword.Name = "chbShowPassword";
-            this.chbShowPassword.Size = new System.Drawing.Size(181, 30);
+            this.chbShowPassword.Size = new System.Drawing.Size(160, 25);
             this.chbShowPassword.TabIndex = 3;
             this.chbShowPassword.Text = "Показать пароль";
             this.chbShowPassword.UseVisualStyleBackColor = true;
@@ -167,6 +169,7 @@ namespace Diplom
             this.btnRegistration.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             this.btnRegistration.FlatAppearance.BorderSize = 0;
             this.btnRegistration.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRegistration.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnRegistration.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.btnRegistration.Location = new System.Drawing.Point(317, 297);
             this.btnRegistration.Name = "btnRegistration";
@@ -181,6 +184,7 @@ namespace Diplom
             this.btnLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             this.btnLogin.FlatAppearance.BorderSize = 0;
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogin.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.btnLogin.Location = new System.Drawing.Point(131, 297);
             this.btnLogin.Name = "btnLogin";
@@ -193,20 +197,22 @@ namespace Diplom
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
+            this.lblPassword.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.lblPassword.Location = new System.Drawing.Point(134, 166);
+            this.lblPassword.Location = new System.Drawing.Point(134, 171);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(93, 26);
+            this.lblPassword.Size = new System.Drawing.Size(78, 21);
             this.lblPassword.TabIndex = 19;
             this.lblPassword.Text = "Пароль :";
             // 
             // lblLogin
             // 
             this.lblLogin.AutoSize = true;
+            this.lblLogin.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.lblLogin.Location = new System.Drawing.Point(134, 92);
+            this.lblLogin.Location = new System.Drawing.Point(134, 97);
             this.lblLogin.Name = "lblLogin";
-            this.lblLogin.Size = new System.Drawing.Size(181, 26);
+            this.lblLogin.Size = new System.Drawing.Size(155, 21);
             this.lblLogin.TabIndex = 18;
             this.lblLogin.Text = "Логин или почта :";
             // 

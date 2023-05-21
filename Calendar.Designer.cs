@@ -30,18 +30,37 @@ namespace Diplom
         /// </summary>
         private void InitializeComponent()
         {
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.splitContainer1.Location = new System.Drawing.Point(10, 10);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.monthCalendar1);
+            this.splitContainer1.Size = new System.Drawing.Size(780, 580);
+            this.splitContainer1.SplitterDistance = 260;
+            this.splitContainer1.TabIndex = 0;
             // 
             // monthCalendar1
             // 
             this.monthCalendar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.monthCalendar1.CalendarDimensions = new System.Drawing.Size(5, 4);
+            this.monthCalendar1.CalendarDimensions = new System.Drawing.Size(3, 4);
             this.monthCalendar1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.monthCalendar1.Location = new System.Drawing.Point(10, 10);
+            this.monthCalendar1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.monthCalendar1.Location = new System.Drawing.Point(0, 0);
             this.monthCalendar1.Margin = new System.Windows.Forms.Padding(0);
             this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 1;
+            this.monthCalendar1.TabIndex = 2;
             this.monthCalendar1.TitleBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             // 
             // Calendar
@@ -50,19 +69,23 @@ namespace Diplom
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(800, 600);
-            this.Controls.Add(this.monthCalendar1);
+            this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Comic Sans MS", 14.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Calendar";
             this.Padding = new System.Windows.Forms.Padding(10);
             this.Text = "Calendar";
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
+        private SplitContainer splitContainer1;
         public MonthCalendar monthCalendar1;
     }
 }

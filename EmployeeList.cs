@@ -10,7 +10,6 @@ namespace Diplom
     public partial class EmployeeList : Form
     {
         private MainMenu mainMenu;
-        //хуй
 
         public EmployeeList(MainMenu form)
         {
@@ -68,11 +67,10 @@ namespace Diplom
 
             dataTable.DefaultView.RowFilter = filter;
 
-            if (dataTable.DefaultView.Count == 0)
+            if (searchTerm.Length >= 3 && dataTable.DefaultView.Count == 0)
             {
                 MessageBox.Show("Ничего не найдено.", "Поиск", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
         }
 
         private void txtphbSearch_Enter(object sender, EventArgs e)

@@ -1,10 +1,8 @@
 ﻿using Diplom.Classess;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace Diplom
@@ -17,14 +15,13 @@ namespace Diplom
             using (var cm = new MySqlCommand())
             {
                 cm.Connection = cn;
-                cm.CommandText = @"SELECT CONCAT(e.last_name, ' ', e.first_name, ' ', e.middle_name) AS full_name, r.role_name AS role, u.user_id, u.id_employee
+                cm.CommandText = @"SELECT CONCAT(e.last_name, ' ', e.first_name, ' ', e.middle_name) AS full_name, r.role_name AS role, u.user_id, u.id_employee, u.password
                                    FROM users u
                                    JOIN roles r ON u.id_role = r.role_id
                                    JOIN employees e ON u.id_employee = e.employee_id
-                                   WHERE (u.login = @p_login OR u.email = @p_login) AND u.password = @p_password";
+                                   WHERE (u.login = @p_login OR u.email = @p_login)";
 
                 cm.Parameters.AddWithValue("@p_login", txtLogin.Text);
-                cm.Parameters.AddWithValue("@p_password", txtPassword.Text);
 
                 var da = new MySqlDataAdapter(cm);
                 var dt = new DataTable();
@@ -38,11 +35,18 @@ namespace Diplom
                         return false;
                     }
 
-                    User.UserID = Convert.ToInt32(dt.Rows[0]["user_id"]);
-                    User.UserFullName = dt.Rows[0]["full_name"].ToString();
-                    User.UserRole = dt.Rows[0]["role"].ToString();
-                    User.EmployeeID = Convert.ToInt32(dt.Rows[0]["id_employee"]);
-                    return true;
+                    var hashedPassword = dt.Rows[0]["password"].ToString();
+
+                    if (HashHelper.VerifyHash(txtPassword.Text, hashedPassword))
+                    {
+                        User.UserID = Convert.ToInt32(dt.Rows[0]["user_id"]);
+                        User.UserFullName = dt.Rows[0]["full_name"].ToString();
+                        User.UserRole = dt.Rows[0]["role"].ToString();
+                        User.EmployeeID = Convert.ToInt32(dt.Rows[0]["id_employee"]);
+                        return true;
+                    }
+
+                    return false;
                 }
                 finally
                 {
@@ -189,7 +193,7 @@ namespace Diplom
         {
             using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
             {
-                string query = @"SELECT COUNT(*) 
+                string query = @"SELECT * 
                                  FROM users 
                                  WHERE email = @p_email";
                 using (MySqlCommand cm = new MySqlCommand(query, cn))
@@ -247,9 +251,9 @@ namespace Diplom
         {
             using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
             {
-                string query = @"SELECT COUNT(*) 
+                string query = @"SELECT * 
                                  FROM users 
-                                 WHERE login = @p_login OR email = @p_email";
+                                 WHERE login = @p_login OR email =@p_email";
 
                 using (MySqlCommand cm = new MySqlCommand(query, cn))
                 {
@@ -592,10 +596,22 @@ namespace Diplom
 
         public static void FillDataGridViewVacations(DataGridView dataGridView)
         {
-            string query = @"SELECT v.vacation_id AS '№', CONCAT(e.last_name, ' ', e.first_name, ' ', e.middle_name) AS 'Сотрудник', v.start_date AS 'Дата начала', v.duration AS 'Продолжительность (дни)', t.name AS 'Тип отпуска', v.end_date AS 'Дата окончания'
+            string query = @"SELECT v.vacation_id AS '№',
+                                    d.department_name AS 'Отдел',
+                                    p.position_name AS 'Должность',
+                                    CONCAT(e.last_name, ' ', e.first_name, ' ', e.middle_name) AS 'Полное имя',
+                                    e.employee_id AS 'Табельный номер',
+                                    v.duration AS 'Кол-во дней отпуска',
+                                    v.start_date AS 'Дата начала отпуска',
+                                    v.end_date AS 'Дата окончания отпуска',
+                                    t.vacation_type_name AS 'Тип отпуска',
+                                    s.status_name AS 'Статус'
                              FROM vacations v
                              INNER JOIN employees e ON v.id_employee = e.employee_id
                              INNER JOIN vacation_types t ON v.id_vacation_type = t.vacation_type_id
+                             INNER JOIN positions p ON e.id_position = p.position_id
+                             INNER JOIN departments d ON p.id_department = d.department_id
+                             INNER JOIN status s ON v.id_status = s.status_id
                              ORDER BY v.vacation_id";
 
             using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
@@ -608,9 +624,67 @@ namespace Diplom
 
                     DataTable dt = ds.Tables[0];
 
-                    EmployeeList.SetupDataGridView(dataGridView, dt);
+                    VacationSchedule.SetupDataGridView(dataGridView, dt);
                 }
             }
+        }
+
+        public static DataTable GetVacationType()
+        {
+            using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
+            {
+                string query = "SELECT * FROM vacation_types";
+                using (MySqlCommand command = new MySqlCommand(query, cn))
+                {
+                    cn.Open();
+                    DataTable dataTable = new DataTable();
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        dataTable.Load(reader);
+                    }
+                    return dataTable;
+                }
+            }
+        }
+
+        public static bool InsertVacation(int IdEmployee,int Duration, DateTime StartVacation, int VacationType, string Reason)
+        {
+            bool success = false;
+
+            try
+            {
+                using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
+                {
+                    cn.Open();
+
+                    string query = @"INSERT INTO vacations 
+                                        (id_employee, start_date, duration, id_vacation_type, reason)
+                                     VALUES 
+                                        (@IdEmployee, @StartDate, @Duration, @IdVacationType, @Reason)";
+
+
+                    MySqlCommand command = new MySqlCommand(query, cn);
+                    command.Parameters.AddWithValue("@IdEmployee", IdEmployee);
+                    command.Parameters.AddWithValue("@StartDate", StartVacation);
+                    command.Parameters.AddWithValue("@Duration", Duration);
+                    command.Parameters.AddWithValue("@IdVacationType", VacationType);
+                    command.Parameters.AddWithValue("@Reason", Reason);
+
+
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        success = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при добавлении данных: " + ex.Message);
+            }
+
+            return success;
         }
     }
 }

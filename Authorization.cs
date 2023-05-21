@@ -14,8 +14,8 @@ namespace Diplom
 
             txtLogin.Focus();
 
-            txtLogin.Text = "admin";
-            txtPassword.Text = "123";
+            txtLogin.Text = "lyuts24@mail.ru";
+            txtPassword.Text = "350z0NADcR";
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
