@@ -20,6 +20,12 @@ namespace Diplom
             UpdateDataGridView();
 
             timerUpdate.Start();
+
+            if (User.UserRole == "Пользователь")
+            {
+                btnAdd.Visible = false;
+                btnDelete.Visible = false;
+            }
         }
 
         public static void SetupDataGridView(DataGridView dataGridView, DataTable dataTable)
@@ -29,21 +35,23 @@ namespace Diplom
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView.Columns["№"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
-            // Обработчик события CellPainting для изменения цвета шапки таблицы
-            dataGridView.CellPainting += (sender, e) =>
-            {
-                if (e.RowIndex == -1 && e.ColumnIndex >= 0)
-                {
-                    using (Brush backColorBrush = new SolidBrush(Color.FromArgb(24, 30, 54)))
-                    using (Brush foreColorBrush = new SolidBrush(Color.FromArgb(0, 126, 249)))
-                    {
-                        e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
-                        e.Graphics.DrawString(e.Value?.ToString(), dataGridView.ColumnHeadersDefaultCellStyle.Font, foreColorBrush, e.CellBounds, new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
-                        e.Handled = true;
-                    }
-                }
-            };
+            dataGridView.CellPainting += DataGridView_CellPainting;
         }
+
+        private static void DataGridView_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex == -1 && e.ColumnIndex >= 0)
+            {
+                using (Brush backColorBrush = new SolidBrush(Color.FromArgb(24, 30, 54)))
+                using (Brush foreColorBrush = new SolidBrush(Color.FromArgb(0, 126, 249)))
+                {
+                    e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
+                    e.Graphics.DrawString(e.Value?.ToString(), e.CellStyle.Font, foreColorBrush, e.CellBounds, new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
+                    e.Handled = true;
+                }
+            }
+        }
+
 
         private void txtphbSearch_TextChanged(object sender, EventArgs e)
         {
@@ -54,7 +62,7 @@ namespace Diplom
                 return;
             }
 
-            DataTable dataTable = (DataTable)dgvEmployees.DataSource;
+            DataTable dataTable = dgvEmployees.DataSource as DataTable;
 
             string filter = string.Format("Фамилия LIKE '%{0}%' OR " +
                                           "Имя LIKE '%{0}%' OR " +
@@ -109,10 +117,8 @@ namespace Diplom
                 string address = selectedRow.Cells["Адрес"].Value.ToString();
                 employeeModule.cmbEducation.SelectedIndex = employeeModule.cmbEducation.FindStringExact(selectedRow.Cells["Образование"].Value.ToString());
 
-                // Проверяем роль пользователя
                 if (User.UserRole == "Пользователь")
                 {
-                    // Ограничиваем редактирование данных для пользователя
                     if (employeeId != User.EmployeeID)
                     {
                         MessageBox.Show("Вы можете редактировать только свои личные данные.");
@@ -140,11 +146,6 @@ namespace Diplom
             UpdateDataGridView();
         }
 
-        private void UpdateDataGridView()
-        {
-            Database.FillDataGridViewEmployees(dgvEmployees);
-        }
-
         private void btnDelete_Click(object sender, EventArgs e)
         {
             DataGridViewSelectedRowCollection selectedRows = dgvEmployees.SelectedRows;
@@ -169,7 +170,7 @@ namespace Diplom
                     {
                         MessageBox.Show("Удаление выполнено успешно.");
 
-                        Database.FillDataGridViewEmployees(dgvEmployees);
+                        UpdateDataGridView();
                     }
                     else
                     {
@@ -177,6 +178,11 @@ namespace Diplom
                     }
                 }
             }
+        }
+
+        private void UpdateDataGridView()
+        {
+            Database.FillDataGridViewEmployees(dgvEmployees);
         }
     }
 }

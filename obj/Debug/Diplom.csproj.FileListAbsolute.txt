@@ -91,3 +91,4 @@ F:\Учеба\Diplom\Diplom\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
 F:\Учеба\Diplom\Diplom\bin\Debug\EPPlus.xml
 F:\Учеба\Diplom\Diplom\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
 F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.VacationSheduleModule.resources
+F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.SettingsForm.resources

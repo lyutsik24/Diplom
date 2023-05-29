@@ -29,11 +29,9 @@ namespace Diplom
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lLblResetPassword = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnMinimize = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
@@ -48,21 +46,11 @@ namespace Diplom
             this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(5, 400);
-            this.panel1.TabIndex = 11;
-            // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.panel3.Controls.Add(this.lLblResetPassword);
             this.panel3.Controls.Add(this.label1);
-            this.panel3.Controls.Add(this.panel2);
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Controls.Add(this.chbShowPassword);
             this.panel3.Controls.Add(this.btnRegistration);
@@ -72,9 +60,9 @@ namespace Diplom
             this.panel3.Controls.Add(this.txtPassword);
             this.panel3.Controls.Add(this.txtLogin);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(5, 0);
+            this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(595, 400);
+            this.panel3.Size = new System.Drawing.Size(600, 400);
             this.panel3.TabIndex = 13;
             // 
             // lLblResetPassword
@@ -87,7 +75,7 @@ namespace Diplom
             this.lLblResetPassword.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.lLblResetPassword.Location = new System.Drawing.Point(0, 350);
             this.lLblResetPassword.Name = "lLblResetPassword";
-            this.lLblResetPassword.Size = new System.Drawing.Size(590, 50);
+            this.lLblResetPassword.Size = new System.Drawing.Size(600, 50);
             this.lLblResetPassword.TabIndex = 6;
             this.lLblResetPassword.TabStop = true;
             this.lLblResetPassword.Text = "Забыли пароль?";
@@ -101,27 +89,20 @@ namespace Diplom
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.label1.Location = new System.Drawing.Point(0, 32);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(590, 50);
+            this.label1.Size = new System.Drawing.Size(600, 50);
             this.label1.TabIndex = 28;
             this.label1.Text = "АВТОРИЗАЦИЯ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panel2
-            // 
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(590, 32);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(5, 368);
-            this.panel2.TabIndex = 24;
-            // 
             // panel4
             // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             this.panel4.Controls.Add(this.btnMinimize);
             this.panel4.Controls.Add(this.btnClose);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(595, 32);
+            this.panel4.Size = new System.Drawing.Size(600, 32);
             this.panel4.TabIndex = 23;
             // 
             // btnMinimize
@@ -130,7 +111,7 @@ namespace Diplom
             this.btnMinimize.FlatAppearance.BorderSize = 0;
             this.btnMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMinimize.Image = global::Diplom.Properties.Resources.minimize_window_32px;
-            this.btnMinimize.Location = new System.Drawing.Point(531, 0);
+            this.btnMinimize.Location = new System.Drawing.Point(536, 0);
             this.btnMinimize.Name = "btnMinimize";
             this.btnMinimize.Size = new System.Drawing.Size(32, 32);
             this.btnMinimize.TabIndex = 3;
@@ -143,7 +124,7 @@ namespace Diplom
             this.btnClose.FlatAppearance.BorderSize = 0;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Image = global::Diplom.Properties.Resources.close_window_32px;
-            this.btnClose.Location = new System.Drawing.Point(563, 0);
+            this.btnClose.Location = new System.Drawing.Point(568, 0);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(32, 32);
             this.btnClose.TabIndex = 2;
@@ -245,7 +226,6 @@ namespace Diplom
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(600, 400);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(6);
@@ -260,7 +240,6 @@ namespace Diplom
         }
 
         #endregion
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.CheckBox chbShowPassword;
         private System.Windows.Forms.Button btnRegistration;
@@ -269,7 +248,6 @@ namespace Diplom
         private System.Windows.Forms.Label lblLogin;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.TextBox txtLogin;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button btnMinimize;
         private System.Windows.Forms.Button btnClose;

@@ -6,15 +6,17 @@ namespace Diplom
 {
     public partial class MainMenu : Form
     {
-        private Form activeForm = null;
-
+        private Form activeChildForm = null;
         private bool isDragging = false;
         private Point dragStartPosition;
 
         public MainMenu()
         {
             InitializeComponent();
-
+            InitializeUI();
+        }
+        private void InitializeUI()
+        {
             UpdateNavigation(btnUsers);
 
             lblFullName.Text = $"{User.UserFullName}\n({User.UserRole})";
@@ -79,6 +81,7 @@ namespace Diplom
         private void btnSettings_Click(object sender, EventArgs e)
         {
             UpdateNavigation(btnSettings);
+            OpenChildForm(new SettingsForm(this));
         }
 
         private void UpdateNavigation(Button button)
@@ -93,9 +96,12 @@ namespace Diplom
 
         private void OpenChildForm(Form childForm)
         {
-            if (activeForm != null)
-                activeForm.Close();
-            activeForm = childForm;
+            if (activeChildForm != null)
+            {
+                activeChildForm.Close();
+            }
+
+            activeChildForm = childForm;
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Fill;

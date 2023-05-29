@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Diplom.Classess
 {
@@ -49,9 +50,9 @@ namespace Diplom.Classess
                 return false;
             }
 
-            if (!Regex.IsMatch(login, "^[a-zA-Z]+$"))
+            if (!Regex.IsMatch(login, "^[a-zA-Z0-9]+$"))
             {
-                MessageBox.Show("Логин должен содержать только латинские буквы", "Ошибка", MessageBoxButtons.OK);
+                MessageBox.Show("Логин должен содержать только латинские буквы и цифры", "Ошибка", MessageBoxButtons.OK);
                 return false;
             }
 
@@ -138,7 +139,7 @@ namespace Diplom.Classess
             }
 
             if (!Regex.IsMatch(loginOrEmail, "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$") &&
-                !Regex.IsMatch(loginOrEmail, "^[a-zA-Z]+$"))
+                !Regex.IsMatch(loginOrEmail, "^[a-zA-Z0-9]+$"))
             {
                 MessageBox.Show("Некорректный логин или почта", "Ошибка", MessageBoxButtons.OK);
                 return false;
@@ -189,5 +190,82 @@ namespace Diplom.Classess
             return true;
         }
 
+        public static bool ValidateUserData(string login, string email, string phoneNumber)
+        {
+            if (!Regex.IsMatch(email, "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"))
+            {
+                MessageBox.Show("Некорректный адрес электронной почты", "Ошибка", MessageBoxButtons.OK);
+                return false;
+            }
+
+            if (!Regex.IsMatch(login, "^[a-zA-Z0-9]+$"))
+            {
+                MessageBox.Show("Некорректный логин", "Ошибка", MessageBoxButtons.OK);
+                return false;
+            }
+
+            int userId = User.UserID;
+
+            if (Database.IsLoginExists(login) && Database.GetLogin(userId) != login)
+            {
+                MessageBox.Show("Данный логин уже занят.", "Ошибка", MessageBoxButtons.OK);
+                return false;
+            }
+
+            if (Database.IsEmailExists(email) && Database.GetEmail(userId) != email)
+            {
+                MessageBox.Show("Данный адрес электронной почты уже занят.", "Ошибка", MessageBoxButtons.OK);
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool ValidatePasswordAndSecret(string password, string password2, string secretWord)
+        {
+            if (string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Пароль не может быть пустым.", "Ошибка", MessageBoxButtons.OK);
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(secretWord))
+            {
+                MessageBox.Show("Секретное слово не может быть пустым.", "Ошибка", MessageBoxButtons.OK);
+                return false;
+            }
+
+            if (password.Length < 8)
+            {
+                MessageBox.Show("Пароль должен содержать не менее 8 символов.", "Ошибка", MessageBoxButtons.OK);
+                return false;
+            }
+
+            if (!Regex.IsMatch(password, @"^[a-zA-Z0-9]+$"))
+            {
+                MessageBox.Show("Пароль может содержать только латинские буквы и цифры", "Ошибка", MessageBoxButtons.OK);
+                return false;
+            }
+
+            if (!Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"))
+            {
+                MessageBox.Show("Пароль должен содержать хотя бы одну прописную букву, одну заглавную букву и одну цифру", "Ошибка", MessageBoxButtons.OK);
+                return false;
+            }
+
+            if (password.Contains(" "))
+            {
+                MessageBox.Show("Пароль не может содержать пробелы.", "Ошибка", MessageBoxButtons.OK);
+                return false;
+            }
+
+            if (password != password2)
+            {
+                MessageBox.Show("Пароли не совпадают", "Ошибка", MessageBoxButtons.OK);
+                return false;
+            }
+
+            return true;
+        }
     }
 }

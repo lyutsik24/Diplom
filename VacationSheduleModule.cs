@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Diplom
@@ -18,16 +12,18 @@ namespace Diplom
         {
             InitializeComponent();
 
-            FillVacationType();
+            FillComboBoxes();
 
             vacationSchedule = form;
 
             txtReason.Enabled = false;
+            cmbStatus.Visible = false;
+            label5.Visible = false;
         }
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void btnSend_Click(object sender, EventArgs e)
@@ -36,19 +32,19 @@ namespace Diplom
 
             if (result == DialogResult.Yes)
             {
-                int IdEmployee = User.EmployeeID;
-                int Duration = Convert.ToInt32(txtDuration.Text);
-                DateTime StartVacation = dtpStartVacation.Value;
-                int VacationType = (int)cmbVacationType.SelectedValue;
-                string Reason = txtReason.Text;
+                int idEmployee = User.EmployeeID;
+                int duration = Convert.ToInt32(txtDuration.Text);
+                DateTime startVacation = dtpStartVacation.Value;
+                int vacationType = (int)cmbVacationType.SelectedValue;
+                string reason = txtReason.Text;
 
-                bool success = Database.InsertVacation(IdEmployee, Duration, StartVacation, VacationType, Reason);
+                bool success = Database.InsertVacation(idEmployee, duration, startVacation, vacationType, reason);
 
                 if (success)
                 {
                     MessageBox.Show("Запрос успешно отправлен.", "Добавление данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Database.FillDataGridViewVacations(vacationSchedule.dgvShedule);
-                    this.Close();
+                    Close();
                 }
                 else
                 {
@@ -57,23 +53,58 @@ namespace Diplom
             }
         }
 
-        private void FillVacationType()
+        private void FillComboBoxes()
         {
-            DataTable vacationtypeData = Database.GetVacationType();
-            cmbVacationType.DataSource = vacationtypeData;
-            cmbVacationType.DisplayMember = "vacation_type_name";
-            cmbVacationType.ValueMember = "vacation_type_id";
+            FillComboBox(cmbStatus, "status_id", "status_name", Database.GetStatusList());
+            FillComboBox(cmbVacationType, "vacation_type_id", "vacation_type_name", Database.GetVacationType());
+        }
+
+        private void FillComboBox(ComboBox comboBox, string valueMember, string displayMember, DataTable data)
+        {
+            comboBox.DataSource = data;
+            comboBox.DisplayMember = displayMember;
+            comboBox.ValueMember = valueMember;
         }
 
         private void cmbVacationType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbVacationType.SelectedIndex == 1)
+            txtReason.Enabled = cmbVacationType.SelectedIndex == 1;
+        }
+
+        public void SetVacationData(int vacationId, string duration, DateTime dateOfStart, string reason)
+        {
+            pcode.Text = vacationId.ToString();
+            txtDuration.Text = duration;
+            dtpStartVacation.Value = dateOfStart;
+            txtReason.Text = reason;
+        }
+
+        private void txtDuration_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar);
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Вы уверены, что хотите изменить статус?", "Подтверждение Обновления данных", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
             {
-                txtReason.Enabled = true;
-            }
-            else
-            {
-                txtReason.Enabled = false;
+                int vacationId = Convert.ToInt32(pcode.Text);
+                int status = (int)cmbStatus.SelectedValue;
+
+                bool success = Database.UpdateVacationStatus(vacationId, status);
+
+                if (success)
+                {
+                    MessageBox.Show("Статус успешно обновлен.", "Обновление данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Database.FillDataGridViewVacations(vacationSchedule.dgvShedule);
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при обновлении статуса.", "Обновление данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

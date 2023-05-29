@@ -41,6 +41,8 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.cmbStatus = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.pcode = new System.Windows.Forms.Label();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label9
@@ -83,6 +85,7 @@
             this.txtDuration.Name = "txtDuration";
             this.txtDuration.Size = new System.Drawing.Size(354, 22);
             this.txtDuration.TabIndex = 31;
+            this.txtDuration.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDuration_KeyPress);
             // 
             // label3
             // 
@@ -216,12 +219,43 @@
             this.label5.TabIndex = 33;
             this.label5.Text = "Статус :";
             // 
+            // pcode
+            // 
+            this.pcode.AutoSize = true;
+            this.pcode.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.pcode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.pcode.Location = new System.Drawing.Point(22, 505);
+            this.pcode.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.pcode.Name = "pcode";
+            this.pcode.Size = new System.Drawing.Size(57, 21);
+            this.pcode.TabIndex = 38;
+            this.pcode.Text = "pcode";
+            this.pcode.Visible = false;
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
+            this.btnUpdate.FlatAppearance.BorderSize = 0;
+            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpdate.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnUpdate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.btnUpdate.Location = new System.Drawing.Point(259, 495);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(2);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(138, 41);
+            this.btnUpdate.TabIndex = 39;
+            this.btnUpdate.Text = "Обновить";
+            this.btnUpdate.UseVisualStyleBackColor = false;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
             // VacationSheduleModule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(634, 557);
+            this.Controls.Add(this.btnUpdate);
+            this.Controls.Add(this.pcode);
             this.Controls.Add(this.cmbStatus);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.label4);
@@ -262,6 +296,8 @@
         public System.Windows.Forms.TextBox txtReason;
         public System.Windows.Forms.Button btnSend;
         public System.Windows.Forms.ComboBox cmbStatus;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label pcode;
+        public System.Windows.Forms.Label label5;
+        public System.Windows.Forms.Button btnUpdate;
     }
 }

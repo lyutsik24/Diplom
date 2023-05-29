@@ -32,8 +32,6 @@ namespace Diplom
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnMinimize = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.txtLoginOrEmail = new Diplom.TextBoxWithPlaceholder();
             this.txtPassword_2 = new Diplom.TextBoxWithPlaceholder();
@@ -46,12 +44,13 @@ namespace Diplom
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             this.panel1.Controls.Add(this.btnMinimize);
             this.panel1.Controls.Add(this.btnClose);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(5, 0);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(590, 32);
+            this.panel1.Size = new System.Drawing.Size(600, 32);
             this.panel1.TabIndex = 35;
             // 
             // btnMinimize
@@ -60,7 +59,7 @@ namespace Diplom
             this.btnMinimize.FlatAppearance.BorderSize = 0;
             this.btnMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMinimize.Image = global::Diplom.Properties.Resources.minimize_window_32px;
-            this.btnMinimize.Location = new System.Drawing.Point(526, 0);
+            this.btnMinimize.Location = new System.Drawing.Point(536, 0);
             this.btnMinimize.Name = "btnMinimize";
             this.btnMinimize.Size = new System.Drawing.Size(32, 32);
             this.btnMinimize.TabIndex = 2;
@@ -73,37 +72,21 @@ namespace Diplom
             this.btnClose.FlatAppearance.BorderSize = 0;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Image = global::Diplom.Properties.Resources.close_window_32px;
-            this.btnClose.Location = new System.Drawing.Point(558, 0);
+            this.btnClose.Location = new System.Drawing.Point(568, 0);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(32, 32);
             this.btnClose.TabIndex = 1;
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // panel3
-            // 
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(5, 400);
-            this.panel3.TabIndex = 37;
-            // 
-            // panel2
-            // 
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(595, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(5, 400);
-            this.panel2.TabIndex = 36;
-            // 
             // label1
             // 
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.label1.Location = new System.Drawing.Point(5, 32);
+            this.label1.Location = new System.Drawing.Point(0, 32);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(590, 50);
+            this.label1.Size = new System.Drawing.Size(600, 50);
             this.label1.TabIndex = 45;
             this.label1.Text = "ВОССТАНОВЛЕНИЕ ПАРОЛЯ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -206,8 +189,6 @@ namespace Diplom
             this.Controls.Add(this.txtPassword_1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel2);
             this.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(6);
@@ -225,8 +206,6 @@ namespace Diplom
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnMinimize;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;
         private TextBoxWithPlaceholder txtLoginOrEmail;
         private TextBoxWithPlaceholder txtPassword_2;

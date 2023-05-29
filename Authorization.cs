@@ -9,11 +9,13 @@ namespace Diplom
         public Authorization()
         {
             InitializeComponent();
-
+            InitializeLoginForm();
+        }
+        
+        private void InitializeLoginForm()
+        {
             txtPassword.UseSystemPasswordChar = true;
-
             txtLogin.Focus();
-
             txtLogin.Text = "lyuts24@mail.ru";
             txtPassword.Text = "350z0NADcR";
         }

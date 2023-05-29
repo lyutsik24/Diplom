@@ -1,5 +1,6 @@
 ﻿using Diplom.Classess;
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Bcpg;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -605,7 +606,8 @@ namespace Diplom
                                     v.start_date AS 'Дата начала отпуска',
                                     v.end_date AS 'Дата окончания отпуска',
                                     t.vacation_type_name AS 'Тип отпуска',
-                                    s.status_name AS 'Статус'
+                                    s.status_name AS 'Статус',
+                                    v.reason AS 'Причина'
                              FROM vacations v
                              INNER JOIN employees e ON v.id_employee = e.employee_id
                              INNER JOIN vacation_types t ON v.id_vacation_type = t.vacation_type_id
@@ -647,7 +649,7 @@ namespace Diplom
             }
         }
 
-        public static bool InsertVacation(int IdEmployee,int Duration, DateTime StartVacation, int VacationType, string Reason)
+        public static bool InsertVacation(int IdEmployee, int Duration, DateTime StartVacation, int VacationType, string Reason)
         {
             bool success = false;
 
@@ -685,6 +687,264 @@ namespace Diplom
             }
 
             return success;
+        }
+
+        public static DataTable GetStatusList()
+        {
+            using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
+            {
+                string query = "SELECT * FROM status";
+                using (MySqlCommand command = new MySqlCommand(query, cn))
+                {
+                    cn.Open();
+                    DataTable dataTable = new DataTable();
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        dataTable.Load(reader);
+                    }
+                    return dataTable;
+                }
+            }
+        }
+
+        public static bool UpdateVacationStatus(int vacationId, int status)
+        {
+            bool success = false;
+
+            try
+            {
+                using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
+                {
+                    cn.Open();
+
+                    string query = @"UPDATE vacations 
+                             SET id_status = @Status 
+                             WHERE vacation_id = @VacationId";
+
+                    MySqlCommand command = new MySqlCommand(query, cn);
+                    command.Parameters.AddWithValue("@Status", status);
+                    command.Parameters.AddWithValue("@VacationId", vacationId);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        success = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при обновлении статуса: " + ex.Message);
+            }
+
+            return success;
+        }
+
+        public static string GetLogin(int userId)
+        {
+            using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
+            {
+                string query = @"SELECT login FROM users WHERE user_id = @UserId";
+
+                using (MySqlCommand cm = new MySqlCommand(query, cn))
+                {
+                    cm.Parameters.AddWithValue("@UserId", userId);
+
+                    cn.Open();
+                    object result = cm.ExecuteScalar();
+                    if (result != null)
+                        return result.ToString();
+                    else
+                        return string.Empty;
+                }
+            }
+        }
+
+        public static string GetEmail(int userId)
+        {
+            using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
+            {
+                string query = @"SELECT email FROM users WHERE user_id = @UserId";
+
+                using (MySqlCommand cm = new MySqlCommand(query, cn))
+                {
+                    cm.Parameters.AddWithValue("@UserId", userId);
+
+                    cn.Open();
+                    object result = cm.ExecuteScalar();
+                    if (result != null)
+                        return result.ToString();
+                    else
+                        return string.Empty;
+                }
+            }
+        }
+
+        public static string GetPhoneNumber(int userId)
+        {
+            using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
+            {
+                string query = @"SELECT phone_number FROM users WHERE user_id = @UserId";
+
+                using (MySqlCommand cm = new MySqlCommand(query, cn))
+                {
+                    cm.Parameters.AddWithValue("@UserId", userId);
+
+                    cn.Open();
+                    object result = cm.ExecuteScalar();
+                    if (result != null)
+                        return result.ToString();
+                    else
+                        return string.Empty;
+                }
+            }
+        }
+
+        public static void UpdateLogin(string newLogin, int userId)
+        {
+            using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
+            {
+                string query = @"UPDATE users SET login = @NewLogin WHERE user_id = @UserId";
+
+                using (MySqlCommand cm = new MySqlCommand(query, cn))
+                {
+                    try
+                    {
+                        cm.Parameters.AddWithValue("@NewLogin", newLogin);
+                        cm.Parameters.AddWithValue("@UserId", userId);
+
+                        cn.Open();
+                        cm.ExecuteNonQuery();
+                    }
+                    catch (MySqlException ex)
+                    {
+                        throw new Exception($"Ошибка при выполнении запроса. {ex.Message}");
+                    }
+                }
+            }
+        }
+
+        public static void UpdateEmail(string newEmail, int userId)
+        {
+            using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
+            {
+                string query = @"UPDATE users SET email = @NewEmail WHERE user_id = @UserId";
+
+                using (MySqlCommand cm = new MySqlCommand(query, cn))
+                {
+                    try
+                    {
+                        cm.Parameters.AddWithValue("@NewEmail", newEmail);
+                        cm.Parameters.AddWithValue("@UserId", userId);
+
+                        cn.Open();
+                        cm.ExecuteNonQuery();
+                    }
+                    catch (MySqlException ex)
+                    {
+                        throw new Exception($"Ошибка при выполнении запроса. {ex.Message}");
+                    }
+                }
+            }
+        }
+
+        public static void UpdatePhoneNumber(string newPhoneNumber, int userId)
+        {
+            using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
+            {
+                string query = @"UPDATE users SET phone_number = @NewPhoneNumber WHERE user_id = @UserId";
+
+                using (MySqlCommand cm = new MySqlCommand(query, cn))
+                {
+                    try
+                    {
+                        cm.Parameters.AddWithValue("@NewPhoneNumber", newPhoneNumber);
+                        cm.Parameters.AddWithValue("@UserId", userId);
+
+                        cn.Open();
+                        cm.ExecuteNonQuery();
+                    }
+                    catch (MySqlException ex)
+                    {
+                        throw new Exception($"Ошибка при выполнении запроса. {ex.Message}");
+                    }
+                }
+            }
+        }
+
+        public static string GetPasswordHash(int userId)
+        {
+            using (MySqlConnection connection = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT password FROM users WHERE user_id = @userId";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@userId", userId);
+
+                object result = command.ExecuteScalar();
+                if (result != null)
+                {
+                    return result.ToString();
+                }
+
+                return null;
+            }
+        }
+
+        public static string GetSecretWordHash(int userId)
+        {
+            using (MySqlConnection connection = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT secret_word FROM users WHERE user_id = @userId";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@userId", userId);
+
+                object result = command.ExecuteScalar();
+                if (result != null)
+                {
+                    return result.ToString();
+                }
+
+                return null;
+            }
+        }
+
+        public static void UpdatePassword(string newPassword, int userId)
+        {
+            using (MySqlConnection connection = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
+            {
+                connection.Open();
+
+                string query = "UPDATE users SET password = @newPassword WHERE user_id = @userId";
+
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@newPassword", newPassword);
+                    command.Parameters.AddWithValue("@userId", userId);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void UpdateSecretWord(string newSecretWord, int userId)
+        {
+            using (MySqlConnection connection = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
+            {
+                connection.Open();
+
+                string query = "UPDATE users SET secret_word = @newSecretWord WHERE user_id = @userId";
+
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@newSecretWord", newSecretWord);
+                    command.Parameters.AddWithValue("@userId", userId);
+                    command.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

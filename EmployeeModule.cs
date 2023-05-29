@@ -15,10 +15,7 @@ namespace Diplom
 
             employeeList = form;
 
-            FillGenderComboBox();
-            FillEducationComboBox();
-            FillDepartmentComboBox();
-            FillPositionComboBox();
+            FillComboBoxes();
         }
 
         public void SetEmployeeData(int employeeId, string lastName, string firstName, string middleName, DateTime dateOfBirth, DateTime hireDate, string address)
@@ -32,36 +29,19 @@ namespace Diplom
             txtAddress.Text = address;
         }
 
-        private void FillGenderComboBox()
+        private void FillComboBoxes()
         {
-            DataTable genderData = Database.GetGenders();
-            cmbGender.DataSource = genderData;
-            cmbGender.DisplayMember = "gender_name";
-            cmbGender.ValueMember = "gender_id";
+            FillComboBox(cmbGender, "gender_id", "gender_name", Database.GetGenders());
+            FillComboBox(cmbEducation, "education_id", "education_name", Database.GetEducations());
+            FillComboBox(cmbDepartment, "department_id", "department_name", Database.GetDepartments());
+            FillComboBox(cmbPosition, "position_id", "position_name", Database.GetPositions());
         }
 
-        private void FillEducationComboBox()
+        private void FillComboBox(ComboBox comboBox, string valueMember, string displayMember, DataTable data)
         {
-            DataTable educationData = Database.GetEducations();
-            cmbEducation.DataSource = educationData;
-            cmbEducation.DisplayMember = "education_name";
-            cmbEducation.ValueMember = "education_id";
-        }
-
-        private void FillDepartmentComboBox()
-        {
-            DataTable departmentData = Database.GetDepartments();
-            cmbDepartment.DataSource = departmentData;
-            cmbDepartment.DisplayMember = "department_name";
-            cmbDepartment.ValueMember = "department_id";
-        }
-
-        private void FillPositionComboBox()
-        {
-            DataTable positionData = Database.GetPositions();
-            cmbPosition.DataSource = positionData;
-            cmbPosition.DisplayMember = "position_name";
-            cmbPosition.ValueMember = "position_id";
+            comboBox.DataSource = data;
+            comboBox.DisplayMember = displayMember;
+            comboBox.ValueMember = valueMember;
         }
 
         private void cmbDepartment_SelectedIndexChanged(object sender, EventArgs e)
@@ -78,7 +58,7 @@ namespace Diplom
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -93,13 +73,13 @@ namespace Diplom
                     string lastName = txtLastName.Text;
                     string firstName = txtFirstName.Text;
                     string middleName = txtMiddleName.Text;
-                    int gender = (int)cmbGender.SelectedValue;
+                    int gender = Convert.ToInt32(cmbGender.SelectedValue);
                     DateTime dateOfBirth = dtpBirth.Value;
-                    int department = (int)cmbDepartment.SelectedValue;
-                    int position = (int)cmbPosition.SelectedValue;
+                    int department = Convert.ToInt32(cmbDepartment.SelectedValue);
+                    int position = Convert.ToInt32(cmbPosition.SelectedValue);
                     DateTime hireDate = dtpHire.Value;
                     string address = txtAddress.Text;
-                    int education = (int)cmbEducation.SelectedValue;
+                    int education = Convert.ToInt32(cmbEducation.SelectedValue);
 
                     bool success = Database.UpdateEmployee(employeeId, lastName, firstName, middleName, gender, dateOfBirth, department, position, hireDate, address, education);
 
@@ -107,7 +87,7 @@ namespace Diplom
                     {
                         MessageBox.Show("Данные успешно обновлены.", "Обновление данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         Database.FillDataGridViewEmployees(employeeList.dgvEmployees);
-                        this.Close();
+                        Close();
                     }
                     else
                     {
@@ -128,13 +108,13 @@ namespace Diplom
                     string lastName = txtLastName.Text;
                     string firstName = txtFirstName.Text;
                     string middleName = txtMiddleName.Text;
-                    int gender = (int)cmbGender.SelectedValue;
+                    int gender = Convert.ToInt32(cmbGender.SelectedValue);
                     DateTime dateOfBirth = dtpBirth.Value;
-                    int department = (int)cmbDepartment.SelectedValue;
-                    int position = (int)cmbPosition.SelectedValue;
+                    int department = Convert.ToInt32(cmbDepartment.SelectedValue);
+                    int position = Convert.ToInt32(cmbPosition.SelectedValue);
                     DateTime hireDate = dtpHire.Value;
                     string address = txtAddress.Text;
-                    int education = (int)cmbEducation.SelectedValue;
+                    int education = Convert.ToInt32(cmbEducation.SelectedValue);
 
                     bool success = Database.InsertEmployee(lastName, firstName, middleName, gender, dateOfBirth, department, position, hireDate, address, education);
 
