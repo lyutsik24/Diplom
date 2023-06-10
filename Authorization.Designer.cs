@@ -32,7 +32,7 @@ namespace Diplom
             this.panel3 = new System.Windows.Forms.Panel();
             this.lLblResetPassword = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.pnlControl = new System.Windows.Forms.Panel();
             this.btnMinimize = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.chbShowPassword = new System.Windows.Forms.CheckBox();
@@ -43,7 +43,7 @@ namespace Diplom
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtLogin = new System.Windows.Forms.TextBox();
             this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
+            this.pnlControl.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel3
@@ -51,7 +51,7 @@ namespace Diplom
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.panel3.Controls.Add(this.lLblResetPassword);
             this.panel3.Controls.Add(this.label1);
-            this.panel3.Controls.Add(this.panel4);
+            this.panel3.Controls.Add(this.pnlControl);
             this.panel3.Controls.Add(this.chbShowPassword);
             this.panel3.Controls.Add(this.btnRegistration);
             this.panel3.Controls.Add(this.btnLogin);
@@ -94,16 +94,16 @@ namespace Diplom
             this.label1.Text = "АВТОРИЗАЦИЯ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panel4
+            // pnlControl
             // 
-            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
-            this.panel4.Controls.Add(this.btnMinimize);
-            this.panel4.Controls.Add(this.btnClose);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(0, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(600, 32);
-            this.panel4.TabIndex = 23;
+            this.pnlControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
+            this.pnlControl.Controls.Add(this.btnMinimize);
+            this.pnlControl.Controls.Add(this.btnClose);
+            this.pnlControl.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlControl.Location = new System.Drawing.Point(0, 0);
+            this.pnlControl.Name = "pnlControl";
+            this.pnlControl.Size = new System.Drawing.Size(600, 32);
+            this.pnlControl.TabIndex = 23;
             // 
             // btnMinimize
             // 
@@ -234,7 +234,7 @@ namespace Diplom
             this.Text = "Authorization";
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panel4.ResumeLayout(false);
+            this.pnlControl.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -248,7 +248,7 @@ namespace Diplom
         private System.Windows.Forms.Label lblLogin;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.TextBox txtLogin;
-        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel pnlControl;
         private System.Windows.Forms.Button btnMinimize;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.LinkLabel lLblResetPassword;

@@ -2,21 +2,34 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Diplom.Classess
 {
     public class Validator
     {
-        public static bool ValidateInputEmployee(string lastName, string firstName, string middleName, object gender, object department, object position, object education)
+        public static bool ValidateInputEmployee(string lastName, string firstName, string middleName, object gender, object department, object position, object education, DateTime dateOfBirth, DateTime hireDate, string address)
         {
-            if (string.IsNullOrWhiteSpace(lastName) || string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(middleName)
-                || gender == null || department == null || position == null || education == null)
+            if (string.IsNullOrWhiteSpace(lastName) || string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(middleName) || string.IsNullOrWhiteSpace(address)
+                || gender == null || department == null || position == null || education == null || dateOfBirth == null || hireDate == null)
             {
                 MessageBox.Show("Пожалуйста, заполните все поля.", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
+            string namePattern = @"^[а-яА-ЯёЁ\s]+$";
+            if (!Regex.IsMatch(lastName, namePattern) || !Regex.IsMatch(firstName, namePattern) || !Regex.IsMatch(middleName, namePattern))
+            {
+                MessageBox.Show("Пожалуйста, введите ФИО на русском языке без цифр и специальных символов.", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            string addressPattern = @"^[а-яА-ЯёЁ0-9\s.,/-]+$";
+            if (!Regex.IsMatch(address, addressPattern))
+            {
+                MessageBox.Show("Пожалуйста, введите адрес на русском языке без специальных символов, кроме .,/-", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            
             return true;
         }
 
@@ -28,7 +41,41 @@ namespace Diplom.Classess
                 return false;
             }
 
+            if (IsEmail(txtlogin))
+            {
+                if (IsValidEmail(txtlogin) == false)
+                {
+                    MessageBox.Show("Пожалуйста, введите корректный адрес электронной почты.", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+            else
+            {
+                if (IsValidLogin(txtlogin) == false)
+                {
+                    MessageBox.Show("Пожалуйста, введите логин, содержащий только английские буквы и цифры.", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+
             return true;
+        }
+
+        private static bool IsEmail(string input)
+        {
+            return input.Contains("@");
+        }
+
+        private static bool IsValidEmail(string email)
+        {
+            string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+            return Regex.IsMatch(email, emailPattern);
+        }
+
+        private static bool IsValidLogin(string login)
+        {
+            string loginPattern = @"^[a-zA-Z0-9]+$";
+            return Regex.IsMatch(login, loginPattern);
         }
 
         public static bool ValidateRegistration(string fullName, string login, string email, string password1, string password2, string secret)
@@ -98,13 +145,13 @@ namespace Diplom.Classess
                 return false;
             }
 
-            if (!Database.IsLoginExists(login))
+            if (Database.IsLoginExists(login))
             {
                 MessageBox.Show("Данный логин уже занят.", "Ошибка", MessageBoxButtons.OK);
                 return false;
             }
 
-            if (!Database.IsEmailExists(email))
+            if (Database.IsEmailExists(email))
             {
                 MessageBox.Show("Данный адрес электронной почты уже занят.", "Ошибка", MessageBoxButtons.OK);
                 return false;
@@ -221,7 +268,7 @@ namespace Diplom.Classess
             return true;
         }
 
-        public static bool ValidatePasswordAndSecret(string password, string password2, string secretWord)
+        public static bool ValidatePassword(string password, string password2)
         {
             if (string.IsNullOrEmpty(password))
             {
@@ -229,9 +276,9 @@ namespace Diplom.Classess
                 return false;
             }
 
-            if (string.IsNullOrEmpty(secretWord))
+            if (string.IsNullOrEmpty(password2))
             {
-                MessageBox.Show("Секретное слово не может быть пустым.", "Ошибка", MessageBoxButtons.OK);
+                MessageBox.Show("Подтверждение пароля не может быть пустым.", "Ошибка", MessageBoxButtons.OK);
                 return false;
             }
 
@@ -266,6 +313,35 @@ namespace Diplom.Classess
             }
 
             return true;
+        }
+
+        public static bool ValidateInputVacation(string duration, DateTime startVacation, object vacationType, string reason)
+        {
+            if (string.IsNullOrWhiteSpace(duration) || startVacation == null || vacationType == null)
+            {
+                MessageBox.Show("Пожалуйста, заполните все поля.", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (!int.TryParse(duration, out int parsedDuration) || parsedDuration <= 0)
+            {
+                MessageBox.Show("Пожалуйста, введите корректную продолжительность отпуска.", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            int vacationTypeId = (int)vacationType;
+            if (vacationTypeId == 2 && (string.IsNullOrWhiteSpace(reason) || !IsRussianLanguage(reason)))
+            {
+                MessageBox.Show("Пожалуйста, укажите причину отпуска без сохранения заработной платы на русском языке.", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool IsRussianLanguage(string text)
+        {
+            return System.Text.RegularExpressions.Regex.IsMatch(text, @"^[\p{IsCyrillic}\d\s\-.,?!]+$");
         }
     }
 }

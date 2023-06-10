@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Diplom.Classess;
+using System;
 using System.Data;
 using System.Windows.Forms;
 
@@ -7,6 +8,8 @@ namespace Diplom
     public partial class VacationSheduleModule : Form
     {
         private VacationSchedule vacationSchedule;
+
+        FormDraggable formDraggable = new FormDraggable();
 
         public VacationSheduleModule(VacationSchedule form)
         {
@@ -19,6 +22,8 @@ namespace Diplom
             txtReason.Enabled = false;
             cmbStatus.Visible = false;
             label5.Visible = false;
+
+            formDraggable.Attach(lblName);
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -28,27 +33,31 @@ namespace Diplom
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Вы уверены, что хотите отправить запрос?", "Подтверждение добавления данных", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
+            if (Validator.ValidateInputVacation(txtDuration.Text, dtpStartVacation.Value, cmbVacationType.SelectedValue, txtReason.Text))
             {
-                int idEmployee = User.EmployeeID;
-                int duration = Convert.ToInt32(txtDuration.Text);
-                DateTime startVacation = dtpStartVacation.Value;
-                int vacationType = (int)cmbVacationType.SelectedValue;
-                string reason = txtReason.Text;
+                DialogResult result = MessageBox.Show("Вы уверены, что хотите отправить запрос?", "Подтверждение добавления данных", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                bool success = Database.InsertVacation(idEmployee, duration, startVacation, vacationType, reason);
+                if (result == DialogResult.Yes)
+                {
+                    int idEmployee = User.EmployeeID;
+                    int duration = Convert.ToInt32(txtDuration.Text);
+                    DateTime startVacation = dtpStartVacation.Value;
+                    int vacationType = (int)cmbVacationType.SelectedValue;
+                    string reason = txtReason.Text;
 
-                if (success)
-                {
-                    MessageBox.Show("Запрос успешно отправлен.", "Добавление данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Database.FillDataGridViewVacations(vacationSchedule.dgvShedule);
-                    Close();
-                }
-                else
-                {
-                    MessageBox.Show("Ошибка при отправке запроса.", "Добавление данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    bool success = Database.InsertVacation(idEmployee, duration, startVacation, vacationType, reason);
+
+                    if (success)
+                    {
+                        MessageBox.Show("Запрос успешно отправлен.", "Добавление данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        string role = User.UserRole;
+                        Database.FillDataGridViewVacations(vacationSchedule.dgvShedule, role);
+                        Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ошибка при отправке запроса.", "Добавление данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -98,7 +107,8 @@ namespace Diplom
                 if (success)
                 {
                     MessageBox.Show("Статус успешно обновлен.", "Обновление данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Database.FillDataGridViewVacations(vacationSchedule.dgvShedule);
+                    string role = User.UserRole;
+                    Database.FillDataGridViewVacations(vacationSchedule.dgvShedule, role);
                     Close();
                 }
                 else

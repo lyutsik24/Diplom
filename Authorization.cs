@@ -6,10 +6,15 @@ namespace Diplom
 {
     public partial class Authorization : Form
     {
+        FormDraggable formDraggable = new FormDraggable();
+
         public Authorization()
         {
             InitializeComponent();
+
             InitializeLoginForm();
+
+            formDraggable.Attach(pnlControl);
         }
         
         private void InitializeLoginForm()

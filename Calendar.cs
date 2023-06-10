@@ -27,8 +27,9 @@ namespace Diplom
                 using (MySqlConnection connection = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
                 {
                     string query = @"SELECT e.employee_id, e.last_name, e.first_name, v.start_date, v.duration
-                                     FROM employees e
-                                     INNER JOIN vacations v ON e.employee_id = v.id_employee";
+                             FROM employees e
+                             INNER JOIN vacations v ON e.employee_id = v.id_employee
+                             WHERE v.id_status = 2";
 
                     connection.Open();
 

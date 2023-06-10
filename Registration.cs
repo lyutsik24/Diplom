@@ -6,9 +6,13 @@ namespace Diplom
 {
     public partial class Registration : Form
     {
+        FormDraggable formDraggable = new FormDraggable();
+
         public Registration()
         {
             InitializeComponent();
+
+            formDraggable.Attach(pnlControl);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -77,6 +81,5 @@ namespace Diplom
         {
             Validator.TogglePasswordVisibility(txtSecret, "Придумайте секретное слово");
         }
-
     }
 }

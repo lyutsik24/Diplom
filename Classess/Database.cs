@@ -483,7 +483,7 @@ namespace Diplom
             }
         }
 
-        public static bool UpdateEmployee(int employeeId, string LastName, string FirstName, string MiddleName, int gender, DateTime dateOfBirth, int department, int position, DateTime hireDate, string address, int education)
+        public static bool UpdateEmployee(int employeeId, string lastName, string firstName, string middleName, int genderId, DateTime dateOfBirth, int departmentId, int positionId, DateTime hireDate, string address, int educationId)
         {
             bool success = false;
 
@@ -494,29 +494,29 @@ namespace Diplom
                     cn.Open();
 
                     string query = @"UPDATE employees 
-                                     SET last_name = @LastName, 
-                                         first_name = @FirstName, 
-                                         middle_name = @MiddleName, 
-                                         id_gender = @GenderId, 
-                                         date_of_birth = @DateOfBirth, 
-                                         id_department = @DepartmentId, 
-                                         id_position = @PositionId, 
-                                         hire_date = @HireDate, 
-                                         address = @Address, 
-                                         id_education = @EducationId 
-                                     WHERE employee_id = @EmployeeId";
+                             SET last_name = @LastName, 
+                                 first_name = @FirstName, 
+                                 middle_name = @MiddleName, 
+                                 id_gender = @GenderId, 
+                                 date_of_birth = @DateOfBirth, 
+                                 id_department = @DepartmentId, 
+                                 id_position = @PositionId, 
+                                 hire_date = @HireDate, 
+                                 address = @Address, 
+                                 id_education = @EducationId 
+                             WHERE employee_id = @EmployeeId";
 
                     MySqlCommand command = new MySqlCommand(query, cn);
-                    command.Parameters.AddWithValue("@LastName", LastName);
-                    command.Parameters.AddWithValue("@FirstName", FirstName);
-                    command.Parameters.AddWithValue("@MiddleName", MiddleName);
-                    command.Parameters.AddWithValue("@GenderId", gender);
+                    command.Parameters.AddWithValue("@LastName", lastName.Trim());
+                    command.Parameters.AddWithValue("@FirstName", firstName.Trim());
+                    command.Parameters.AddWithValue("@MiddleName", middleName.Trim());
+                    command.Parameters.AddWithValue("@GenderId", genderId);
                     command.Parameters.AddWithValue("@DateOfBirth", dateOfBirth);
-                    command.Parameters.AddWithValue("@DepartmentId", department);
-                    command.Parameters.AddWithValue("@PositionId", position);
+                    command.Parameters.AddWithValue("@DepartmentId", departmentId);
+                    command.Parameters.AddWithValue("@PositionId", positionId);
                     command.Parameters.AddWithValue("@HireDate", hireDate);
-                    command.Parameters.AddWithValue("@Address", address);
-                    command.Parameters.AddWithValue("@EducationId", education);
+                    command.Parameters.AddWithValue("@Address", address.Trim());
+                    command.Parameters.AddWithValue("@EducationId", educationId);
                     command.Parameters.AddWithValue("@EmployeeId", employeeId);
 
                     int rowsAffected = command.ExecuteNonQuery();
@@ -535,7 +535,7 @@ namespace Diplom
             return success;
         }
 
-        public static bool InsertEmployee(string LastName, string FirstName, string MiddleName, int gender, DateTime dateOfBirth, int department, int position, DateTime hireDate, string address, int education)
+        public static bool InsertEmployee(string lastName, string firstName, string middleName, int genderId, DateTime dateOfBirth, int departmentId, int positionId, DateTime hireDate, string address, int educationId)
         {
             bool success = false;
 
@@ -546,22 +546,21 @@ namespace Diplom
                     cn.Open();
 
                     string query = @"INSERT INTO employees 
-                                        (last_name, first_name, middle_name, id_gender, date_of_birth, id_department, id_position, hire_date, address, id_education)
-                                     VALUES 
-                                        (@LastName, @FirstName, @MiddleName, @GenderId, @DateOfBirth, @DepartmentId, @PositionId, @HireDate, @Address, @EducationId)";
-
+                                (last_name, first_name, middle_name, id_gender, date_of_birth, id_department, id_position, hire_date, address, id_education)
+                             VALUES 
+                                (@LastName, @FirstName, @MiddleName, @GenderId, @DateOfBirth, @DepartmentId, @PositionId, @HireDate, @Address, @EducationId)";
 
                     MySqlCommand command = new MySqlCommand(query, cn);
-                    command.Parameters.AddWithValue("@LastName", LastName);
-                    command.Parameters.AddWithValue("@FirstName", FirstName);
-                    command.Parameters.AddWithValue("@MiddleName", MiddleName);
-                    command.Parameters.AddWithValue("@GenderId", gender);
+                    command.Parameters.AddWithValue("@LastName", lastName.Trim());
+                    command.Parameters.AddWithValue("@FirstName", firstName.Trim());
+                    command.Parameters.AddWithValue("@MiddleName", middleName.Trim());
+                    command.Parameters.AddWithValue("@GenderId", genderId);
                     command.Parameters.AddWithValue("@DateOfBirth", dateOfBirth);
-                    command.Parameters.AddWithValue("@DepartmentId", department);
-                    command.Parameters.AddWithValue("@PositionId", position);
+                    command.Parameters.AddWithValue("@DepartmentId", departmentId);
+                    command.Parameters.AddWithValue("@PositionId", positionId);
                     command.Parameters.AddWithValue("@HireDate", hireDate);
-                    command.Parameters.AddWithValue("@Address", address);
-                    command.Parameters.AddWithValue("@EducationId", education);
+                    command.Parameters.AddWithValue("@Address", address.Trim());
+                    command.Parameters.AddWithValue("@EducationId", educationId);
 
                     int rowsAffected = command.ExecuteNonQuery();
 
@@ -595,31 +594,40 @@ namespace Diplom
             return true;
         }
 
-        public static void FillDataGridViewVacations(DataGridView dataGridView)
+        public static void FillDataGridViewVacations(DataGridView dataGridView, string role)
         {
             string query = @"SELECT v.vacation_id AS '№',
-                                    d.department_name AS 'Отдел',
-                                    p.position_name AS 'Должность',
-                                    CONCAT(e.last_name, ' ', e.first_name, ' ', e.middle_name) AS 'Полное имя',
-                                    e.employee_id AS 'Табельный номер',
-                                    v.duration AS 'Кол-во дней отпуска',
-                                    v.start_date AS 'Дата начала отпуска',
-                                    v.end_date AS 'Дата окончания отпуска',
-                                    t.vacation_type_name AS 'Тип отпуска',
-                                    s.status_name AS 'Статус',
-                                    v.reason AS 'Причина'
-                             FROM vacations v
-                             INNER JOIN employees e ON v.id_employee = e.employee_id
-                             INNER JOIN vacation_types t ON v.id_vacation_type = t.vacation_type_id
-                             INNER JOIN positions p ON e.id_position = p.position_id
-                             INNER JOIN departments d ON p.id_department = d.department_id
-                             INNER JOIN status s ON v.id_status = s.status_id
-                             ORDER BY v.vacation_id";
+                    d.department_name AS 'Отдел',
+                    p.position_name AS 'Должность',
+                    CONCAT(e.last_name, ' ', e.first_name, ' ', e.middle_name) AS 'Полное имя',
+                    e.employee_id AS 'Табельный номер',
+                    v.duration AS 'Кол-во дней отпуска',
+                    v.start_date AS 'Дата начала отпуска',
+                    v.end_date AS 'Дата окончания отпуска',
+                    t.vacation_type_name AS 'Тип отпуска',
+                    s.status_name AS 'Статус',
+                    v.reason AS 'Причина'
+            FROM vacations v
+            INNER JOIN employees e ON v.id_employee = e.employee_id
+            INNER JOIN vacation_types t ON v.id_vacation_type = t.vacation_type_id
+            INNER JOIN positions p ON e.id_position = p.position_id
+            INNER JOIN departments d ON p.id_department = d.department_id
+            INNER JOIN status s ON v.id_status = s.status_id";
+
+            if (role == "Пользователь")
+            {
+                int employeeId = User.EmployeeID;
+                query += " WHERE e.employee_id = @EmployeeId";
+            }
+
+            query += " ORDER BY v.vacation_id";
 
             using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
             {
                 using (MySqlDataAdapter da = new MySqlDataAdapter(query, cn))
                 {
+                    da.SelectCommand.Parameters.AddWithValue("@EmployeeId", User.EmployeeID);
+
                     DataSet ds = new DataSet();
 
                     da.Fill(ds);
@@ -670,7 +678,7 @@ namespace Diplom
                     command.Parameters.AddWithValue("@StartDate", StartVacation);
                     command.Parameters.AddWithValue("@Duration", Duration);
                     command.Parameters.AddWithValue("@IdVacationType", VacationType);
-                    command.Parameters.AddWithValue("@Reason", Reason);
+                    command.Parameters.AddWithValue("@Reason", Reason.Trim());
 
 
                     int rowsAffected = command.ExecuteNonQuery();
@@ -893,26 +901,6 @@ namespace Diplom
             }
         }
 
-        public static string GetSecretWordHash(int userId)
-        {
-            using (MySqlConnection connection = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
-            {
-                connection.Open();
-
-                string query = "SELECT secret_word FROM users WHERE user_id = @userId";
-                MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@userId", userId);
-
-                object result = command.ExecuteScalar();
-                if (result != null)
-                {
-                    return result.ToString();
-                }
-
-                return null;
-            }
-        }
-
         public static void UpdatePassword(string newPassword, int userId)
         {
             using (MySqlConnection connection = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
@@ -924,23 +912,6 @@ namespace Diplom
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@newPassword", newPassword);
-                    command.Parameters.AddWithValue("@userId", userId);
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
-
-        public static void UpdateSecretWord(string newSecretWord, int userId)
-        {
-            using (MySqlConnection connection = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
-            {
-                connection.Open();
-
-                string query = "UPDATE users SET secret_word = @newSecretWord WHERE user_id = @userId";
-
-                using (MySqlCommand command = new MySqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@newSecretWord", newSecretWord);
                     command.Parameters.AddWithValue("@userId", userId);
                     command.ExecuteNonQuery();
                 }

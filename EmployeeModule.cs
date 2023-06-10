@@ -9,6 +9,8 @@ namespace Diplom
     {
         private EmployeeList employeeList;
 
+        FormDraggable formDraggable = new FormDraggable();
+
         public EmployeeModule(EmployeeList form)
         {
             InitializeComponent();
@@ -16,6 +18,8 @@ namespace Diplom
             employeeList = form;
 
             FillComboBoxes();
+
+            formDraggable.Attach(lblName);
         }
 
         public void SetEmployeeData(int employeeId, string lastName, string firstName, string middleName, DateTime dateOfBirth, DateTime hireDate, string address)
@@ -63,25 +67,30 @@ namespace Diplom
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (Validator.ValidateInputEmployee(txtLastName.Text, txtFirstName.Text, txtMiddleName.Text, cmbGender.SelectedValue, cmbDepartment.SelectedValue, cmbPosition.SelectedValue, cmbEducation.SelectedValue))
+            string lastName = txtLastName.Text;
+            string firstName = txtFirstName.Text;
+            string middleName = txtMiddleName.Text;
+            object gender = cmbGender.SelectedValue;
+            object department = cmbDepartment.SelectedValue;
+            object position = cmbPosition.SelectedValue;
+            object education = cmbEducation.SelectedValue;
+            DateTime dateOfBirth = dtpBirth.Value;
+            DateTime hireDate = dtpHire.Value;
+            string address = txtAddress.Text;
+
+            if (Validator.ValidateInputEmployee(lastName, firstName, middleName, gender, department, position, education, dateOfBirth, hireDate, address))
             {
                 DialogResult result = MessageBox.Show("Вы уверены, что хотите обновить данные?", "Подтверждение обновления данных", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
                 {
                     int employeeId = Convert.ToInt32(pcode.Text);
-                    string lastName = txtLastName.Text;
-                    string firstName = txtFirstName.Text;
-                    string middleName = txtMiddleName.Text;
-                    int gender = Convert.ToInt32(cmbGender.SelectedValue);
-                    DateTime dateOfBirth = dtpBirth.Value;
-                    int department = Convert.ToInt32(cmbDepartment.SelectedValue);
-                    int position = Convert.ToInt32(cmbPosition.SelectedValue);
-                    DateTime hireDate = dtpHire.Value;
-                    string address = txtAddress.Text;
-                    int education = Convert.ToInt32(cmbEducation.SelectedValue);
+                    int genderId = Convert.ToInt32(gender);
+                    int departmentId = Convert.ToInt32(department);
+                    int positionId = Convert.ToInt32(position);
+                    int educationId = Convert.ToInt32(education);
 
-                    bool success = Database.UpdateEmployee(employeeId, lastName, firstName, middleName, gender, dateOfBirth, department, position, hireDate, address, education);
+                    bool success = Database.UpdateEmployee(employeeId, lastName, firstName, middleName, genderId, dateOfBirth, departmentId, positionId, hireDate, address, educationId);
 
                     if (success)
                     {
@@ -99,24 +108,29 @@ namespace Diplom
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            if (Validator.ValidateInputEmployee(txtLastName.Text, txtFirstName.Text, txtMiddleName.Text, cmbGender.SelectedValue, cmbDepartment.SelectedValue, cmbPosition.SelectedValue, cmbEducation.SelectedValue))
+            string lastName = txtLastName.Text;
+            string firstName = txtFirstName.Text;
+            string middleName = txtMiddleName.Text;
+            object gender = cmbGender.SelectedValue;
+            object department = cmbDepartment.SelectedValue;
+            object position = cmbPosition.SelectedValue;
+            object education = cmbEducation.SelectedValue;
+            DateTime dateOfBirth = dtpBirth.Value;
+            DateTime hireDate = dtpHire.Value;
+            string address = txtAddress.Text;
+
+            if (Validator.ValidateInputEmployee(lastName, firstName, middleName, gender, department, position, education, dateOfBirth, hireDate, address))
             {
                 DialogResult result = MessageBox.Show("Вы уверены, что хотите добавить данные?", "Подтверждение добавления данных", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
                 {
-                    string lastName = txtLastName.Text;
-                    string firstName = txtFirstName.Text;
-                    string middleName = txtMiddleName.Text;
-                    int gender = Convert.ToInt32(cmbGender.SelectedValue);
-                    DateTime dateOfBirth = dtpBirth.Value;
-                    int department = Convert.ToInt32(cmbDepartment.SelectedValue);
-                    int position = Convert.ToInt32(cmbPosition.SelectedValue);
-                    DateTime hireDate = dtpHire.Value;
-                    string address = txtAddress.Text;
-                    int education = Convert.ToInt32(cmbEducation.SelectedValue);
+                    int genderId = Convert.ToInt32(gender);
+                    int departmentId = Convert.ToInt32(department);
+                    int positionId = Convert.ToInt32(position);
+                    int educationId = Convert.ToInt32(education);
 
-                    bool success = Database.InsertEmployee(lastName, firstName, middleName, gender, dateOfBirth, department, position, hireDate, address, education);
+                    bool success = Database.InsertEmployee(lastName, firstName, middleName, genderId, dateOfBirth, departmentId, positionId, hireDate, address, educationId);
 
                     if (success)
                     {

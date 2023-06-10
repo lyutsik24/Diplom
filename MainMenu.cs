@@ -7,14 +7,19 @@ namespace Diplom
     public partial class MainMenu : Form
     {
         private Form activeChildForm = null;
-        private bool isDragging = false;
-        private Point dragStartPosition;
+        FormDraggable formDraggable = new FormDraggable();
 
         public MainMenu()
         {
             InitializeComponent();
+
             InitializeUI();
+
+            btnCalendar.Hide();
+
+            formDraggable.Attach(pnlControl);
         }
+
         private void InitializeUI()
         {
             UpdateNavigation(btnUsers);
@@ -24,6 +29,11 @@ namespace Diplom
             if (User.UserRole == "Пользователь")
             {
                 btnUsers.Visible = false;
+                OpenChildForm(new EmployeeList(this));
+            }
+            else
+            {
+                OpenChildForm(new UserList(this));
             }
         }
 
@@ -109,26 +119,6 @@ namespace Diplom
             panelChild.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
-        }
-
-        private void pnlControl_MouseDown(object sender, MouseEventArgs e)
-        {
-            isDragging = true;
-            dragStartPosition = new Point(e.X, e.Y);
-        }
-
-        private void pnlControl_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (isDragging)
-            {
-                Point currentPosition = PointToScreen(e.Location);
-                Location = new Point(currentPosition.X - dragStartPosition.X, currentPosition.Y - dragStartPosition.Y);
-            }
-        }
-
-        private void pnlControl_MouseUp(object sender, MouseEventArgs e)
-        {
-            isDragging = false;
         }
     }
 }

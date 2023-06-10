@@ -12,25 +12,30 @@ namespace Diplom
         {
             InitializeComponent();
 
-            FillTextBoxes();
+            InitializeTextBoxes();
 
             mainMenu = form;
 
-            txtPassword.UseSystemPasswordChar = true;
-            txtNewPassword_1.UseSystemPasswordChar = true;
-            txtNewPassword_2.UseSystemPasswordChar = true;
-            txtSecret.UseSystemPasswordChar = true;
+            SetPasswordCharForTextBoxes();
+
+            txtNewPassword_1.Enabled = false;
+            txtNewPassword_2.Enabled = false;
         }
 
-        private void FillTextBoxes()
+        private void InitializeTextBoxes()
         {
             int userId = User.UserID;
 
             txtLogin.Text = Database.GetLogin(userId);
             txtEmail.Text = Database.GetEmail(userId);
             txtPhoneNumber.Text = Database.GetPhoneNumber(userId);
-            txtPassword.Text = Database.GetPasswordHash(userId);
-            txtSecret.Text = Database.GetSecretWordHash(userId);
+        }
+
+        private void SetPasswordCharForTextBoxes()
+        {
+            txtPassword.UseSystemPasswordChar = true;
+            txtNewPassword_1.UseSystemPasswordChar = true;
+            txtNewPassword_2.UseSystemPasswordChar = true;
         }
 
         private void btnUpdateData_Click(object sender, EventArgs e)
@@ -75,7 +80,7 @@ namespace Diplom
                     }
 
                     MessageBox.Show("Данные успешно обновлены!");
-                    FillTextBoxes();
+                    InitializeTextBoxes();
                 }
                 catch (Exception ex)
                 {
@@ -84,27 +89,24 @@ namespace Diplom
             }
         }
 
-        private void btnUpdatePasswordAndSecret_Click(object sender, EventArgs e)
+        private void btnUpdatePassword_Click(object sender, EventArgs e)
         {
             int userId = User.UserID;
 
             string currentPasswordHash = Database.GetPasswordHash(userId);
-            string currentSecretHash = Database.GetSecretWordHash(userId);
 
             string newPassword = txtNewPassword_1.Text;
             string newPasswordConfirm = txtNewPassword_2.Text;
-            string newSecret = txtSecret.Text;
 
             bool isPasswordChanged = !string.IsNullOrEmpty(newPassword) && newPassword != currentPasswordHash;
-            bool isSecretChanged = !string.IsNullOrEmpty(newSecret) && newSecret != currentSecretHash;
 
-            if (!isPasswordChanged && !isSecretChanged)
+            if (!isPasswordChanged)
             {
                 MessageBox.Show("Нет изменений для обновления.", "Внимание", MessageBoxButtons.OK);
                 return;
             }
 
-            if (!Validator.ValidatePasswordAndSecret(newPassword, newPasswordConfirm, newSecret))
+            if (!Validator.ValidatePassword(newPassword, newPasswordConfirm))
             {
                 return;
             }
@@ -115,22 +117,37 @@ namespace Diplom
                 {
                     string newPasswordHash = HashHelper.HashPassword(newPassword);
                     Database.UpdatePassword(newPasswordHash, userId);
+                    txtPassword.Clear();
                     txtNewPassword_1.Clear();
                     txtNewPassword_2.Clear();
                 }
 
-                if (isSecretChanged)
-                {
-                    string newSecretHash = HashHelper.HashSecretWord(newSecret);
-                    Database.UpdateSecretWord(newSecretHash, userId);
-                }
-
                 MessageBox.Show("Данные успешно обновлены!");
-                FillTextBoxes();
+                InitializeTextBoxes();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Ошибка обновления данных: " + ex.Message);
+            }
+        }
+
+        private void txtPassword_TextChanged(object sender, EventArgs e)
+        {
+            int userId = User.UserID;
+            string currentPasswordHash = Database.GetPasswordHash(userId);
+            bool isCurrentPasswordValid = HashHelper.VerifyHash(txtPassword.Text, currentPasswordHash);
+
+            bool isPasswordEntered = !string.IsNullOrEmpty(txtPassword.Text);
+
+            if (isPasswordEntered)
+            {
+                txtNewPassword_1.Enabled = isCurrentPasswordValid;
+                txtNewPassword_2.Enabled = isCurrentPasswordValid;
+            }
+            else
+            {
+                txtNewPassword_1.Enabled = false;
+                txtNewPassword_2.Enabled = false;
             }
         }
     }

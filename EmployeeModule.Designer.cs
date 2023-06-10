@@ -45,7 +45,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.lblName = new System.Windows.Forms.Label();
             this.btnInsert = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
@@ -273,18 +273,18 @@
             this.label8.TabIndex = 21;
             this.label8.Text = "Дата приёма на работу :";
             // 
-            // label9
+            // lblName
             // 
-            this.label9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label9.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.label9.Location = new System.Drawing.Point(10, 10);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(614, 50);
-            this.label9.TabIndex = 22;
-            this.label9.Text = "КАРТОЧКА СОТРУДНИКА";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblName.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblName.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.lblName.Location = new System.Drawing.Point(10, 10);
+            this.lblName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(614, 50);
+            this.lblName.TabIndex = 22;
+            this.lblName.Text = "КАРТОЧКА СОТРУДНИКА";
+            this.lblName.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // btnInsert
             // 
@@ -395,7 +395,7 @@
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnInsert);
-            this.Controls.Add(this.label9);
+            this.Controls.Add(this.lblName);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -441,7 +441,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblName;
         public System.Windows.Forms.DateTimePicker dtpHire;
         public System.Windows.Forms.TextBox txtMiddleName;
         public System.Windows.Forms.TextBox txtAddress;

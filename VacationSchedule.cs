@@ -18,7 +18,8 @@ namespace Diplom
 
             mainMenu = form;
 
-            Database.FillDataGridViewVacations(dgvShedule);
+            string role = User.UserRole;
+            Database.FillDataGridViewVacations(dgvShedule, role);
 
             dgvShedule.Columns["Причина"].Visible = false;
 
@@ -179,6 +180,14 @@ namespace Diplom
             vacationModule.cmbStatus.SelectedIndex = vacationModule.cmbStatus.FindStringExact(selectedRow.Cells["Статус"].Value.ToString());
             vacationModule.cmbVacationType.SelectedIndex = vacationModule.cmbVacationType.FindStringExact(selectedRow.Cells["Тип отпуска"].Value.ToString());
 
+            string role = User.UserRole;
+
+            if (role == "Пользователь")
+            {
+                vacationModule.cmbStatus.Enabled = false;
+                vacationModule.btnUpdate.Visible = false;
+            }
+
             vacationModule.cmbStatus.Visible = true;
             vacationModule.label5.Visible = true;
             vacationModule.cmbVacationType.Enabled = false;
@@ -186,6 +195,9 @@ namespace Diplom
             vacationModule.txtReason.Enabled = false;
             vacationModule.dtpStartVacation.Enabled = false;
             vacationModule.btnSend.Visible = false;
+
+            string vacationNumber = selectedRow.Cells["№"].Value.ToString();
+            vacationModule.lblName.Text = "ЗАЯВКА НА ОТПУСК № " + vacationNumber;
 
             vacationModule.ShowDialog();
         }

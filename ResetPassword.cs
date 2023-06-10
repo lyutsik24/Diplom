@@ -6,9 +6,13 @@ namespace Diplom
 {
     public partial class ResetPassword : Form
     {
+        FormDraggable formDraggable = new FormDraggable();
+
         public ResetPassword()
         {
             InitializeComponent();
+
+            formDraggable.Attach(pnlControl);
         }
 
         private void btnClose_Click(object sender, EventArgs e)

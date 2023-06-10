@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label9 = new System.Windows.Forms.Label();
+            this.lblName = new System.Windows.Forms.Label();
             this.btnBack = new System.Windows.Forms.Button();
             this.txtDuration = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -45,18 +45,18 @@
             this.btnUpdate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label9
+            // lblName
             // 
-            this.label9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label9.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.label9.Location = new System.Drawing.Point(20, 20);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(594, 50);
-            this.label9.TabIndex = 23;
-            this.label9.Text = "ЗАЯВКА НА ОТПУСК";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblName.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblName.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.lblName.Location = new System.Drawing.Point(20, 20);
+            this.lblName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(594, 49);
+            this.lblName.TabIndex = 23;
+            this.lblName.Text = "ЗАЯВКА НА ОТПУСК";
+            this.lblName.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // btnBack
             // 
@@ -170,7 +170,7 @@
             this.txtReason.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtReason.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtReason.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.txtReason.Location = new System.Drawing.Point(13, 305);
+            this.txtReason.Location = new System.Drawing.Point(13, 304);
             this.txtReason.Margin = new System.Windows.Forms.Padding(2);
             this.txtReason.Multiline = true;
             this.txtReason.Name = "txtReason";
@@ -268,7 +268,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dtpStartVacation);
             this.Controls.Add(this.btnBack);
-            this.Controls.Add(this.label9);
+            this.Controls.Add(this.lblName);
             this.Font = new System.Drawing.Font("Comic Sans MS", 14.25F);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -283,8 +283,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnBack;
         public System.Windows.Forms.TextBox txtDuration;
         private System.Windows.Forms.Label label3;
@@ -299,5 +297,6 @@
         private System.Windows.Forms.Label pcode;
         public System.Windows.Forms.Label label5;
         public System.Windows.Forms.Button btnUpdate;
+        public System.Windows.Forms.Label lblName;
     }
 }
