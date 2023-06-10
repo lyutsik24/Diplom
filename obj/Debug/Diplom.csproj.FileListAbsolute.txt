@@ -80,7 +80,6 @@ F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.csproj.CoreCompileInputs.cache
 F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.csproj.CopyComplete
 F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.exe
 F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.pdb
-F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.EmployeeList.resources
 F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.EmployeeModule.resources
 F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.VacationSchedule.resources
 F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.Calendar.resources
@@ -92,3 +91,5 @@ F:\Учеба\Diplom\Diplom\bin\Debug\EPPlus.xml
 F:\Учеба\Diplom\Diplom\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
 F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.VacationSheduleModule.resources
 F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.SettingsForm.resources
+F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.EmployeeListAdminForm.resources
+F:\Учеба\Diplom\Diplom\obj\Debug\Diplom.EmployeeListUserForm.resources

@@ -143,7 +143,6 @@
             this.btnEmployees.Name = "btnEmployees";
             this.btnEmployees.Size = new System.Drawing.Size(186, 42);
             this.btnEmployees.TabIndex = 21;
-            this.btnEmployees.Text = "Сотрудники";
             this.btnEmployees.UseVisualStyleBackColor = false;
             this.btnEmployees.Click += new System.EventHandler(this.btnEmployees_Click);
             // 

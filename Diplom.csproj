@@ -45,8 +45,8 @@
     <Reference Include="EPPlus.System.Drawing, Version=6.1.1.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
       <HintPath>packages\EPPlus.System.Drawing.6.1.1\lib\net462\EPPlus.System.Drawing.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Protobuf, Version=3.23.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
-      <HintPath>packages\Google.Protobuf.3.23.1\lib\net45\Google.Protobuf.dll</HintPath>
+    <Reference Include="Google.Protobuf, Version=3.23.2.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>packages\Google.Protobuf.3.23.2\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
     <Reference Include="K4os.Compression.LZ4, Version=1.3.5.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
       <HintPath>packages\K4os.Compression.LZ4.1.3.5\lib\net462\K4os.Compression.LZ4.dll</HintPath>
@@ -109,6 +109,12 @@
       <DependentUpon>Calendar.cs</DependentUpon>
     </Compile>
     <Compile Include="Classess\FormDraggable.cs" />
+    <Compile Include="EmployeeListUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmployeeListUserForm.Designer.cs">
+      <DependentUpon>EmployeeListUserForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,11 +136,11 @@
     </Compile>
     <Compile Include="Classess\HashHelper.cs" />
     <Compile Include="Classess\Validator.cs" />
-    <Compile Include="EmployeeList.cs">
+    <Compile Include="EmployeeListAdminForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EmployeeList.Designer.cs">
-      <DependentUpon>EmployeeList.cs</DependentUpon>
+    <Compile Include="EmployeeListAdminForm.Designer.cs">
+      <DependentUpon>EmployeeListAdminForm.cs</DependentUpon>
     </Compile>
     <Compile Include="EmployeeModule.cs">
       <SubType>Form</SubType>
@@ -184,14 +190,17 @@
     <EmbeddedResource Include="Calendar.resx">
       <DependentUpon>Calendar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EmployeeListUserForm.resx">
+      <DependentUpon>EmployeeListUserForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VacationSchedule.resx">
       <DependentUpon>VacationSchedule.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EmployeeList.resx">
-      <DependentUpon>EmployeeList.cs</DependentUpon>
+    <EmbeddedResource Include="EmployeeListAdminForm.resx">
+      <DependentUpon>EmployeeListAdminForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EmployeeModule.resx">
       <DependentUpon>EmployeeModule.cs</DependentUpon>

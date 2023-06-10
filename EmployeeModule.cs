@@ -7,11 +7,11 @@ namespace Diplom
 {
     public partial class EmployeeModule : Form
     {
-        private EmployeeList employeeList;
+        private EmployeeListAdminForm employeeList;
 
         FormDraggable formDraggable = new FormDraggable();
 
-        public EmployeeModule(EmployeeList form)
+        public EmployeeModule(EmployeeListAdminForm form)
         {
             InitializeComponent();
 

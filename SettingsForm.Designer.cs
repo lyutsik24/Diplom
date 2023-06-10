@@ -108,8 +108,7 @@
             // 
             // btnUpdateData
             // 
-            this.btnUpdateData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpdateData.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnUpdateData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             this.btnUpdateData.FlatAppearance.BorderSize = 0;
             this.btnUpdateData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -212,8 +211,7 @@
             // 
             // btnUpdatePassword
             // 
-            this.btnUpdatePassword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpdatePassword.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnUpdatePassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             this.btnUpdatePassword.FlatAppearance.BorderSize = 0;
             this.btnUpdatePassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

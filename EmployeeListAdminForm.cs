@@ -7,11 +7,11 @@ using System.Windows.Forms;
 
 namespace Diplom
 {
-    public partial class EmployeeList : Form
+    public partial class EmployeeListAdminForm : Form
     {
         private MainMenu mainMenu;
 
-        public EmployeeList(MainMenu form)
+        public EmployeeListAdminForm(MainMenu form)
         {
             InitializeComponent();
 
@@ -20,12 +20,6 @@ namespace Diplom
             UpdateDataGridView();
 
             timerUpdate.Start();
-
-            if (User.UserRole == "Пользователь")
-            {
-                btnAdd.Visible = false;
-                btnDelete.Visible = false;
-            }
         }
 
         public static void SetupDataGridView(DataGridView dataGridView, DataTable dataTable)
@@ -51,7 +45,6 @@ namespace Diplom
                 }
             }
         }
-
 
         private void txtphbSearch_TextChanged(object sender, EventArgs e)
         {
@@ -117,15 +110,6 @@ namespace Diplom
                 string address = selectedRow.Cells["Адрес"].Value.ToString();
                 employeeModule.cmbEducation.SelectedIndex = employeeModule.cmbEducation.FindStringExact(selectedRow.Cells["Образование"].Value.ToString());
 
-                if (User.UserRole == "Пользователь")
-                {
-                    if (employeeId != User.EmployeeID)
-                    {
-                        MessageBox.Show("Вы можете редактировать только свои личные данные.");
-                        return;
-                    }
-                }
-
                 employeeModule.SetEmployeeData(employeeId, lastName, firstName, middleName, dateOfBirth, hireDate, address);
 
                 employeeModule.btnInsert.Visible = false;
@@ -150,32 +134,35 @@ namespace Diplom
         {
             DataGridViewSelectedRowCollection selectedRows = dgvEmployees.SelectedRows;
 
-            if (selectedRows.Count > 0)
+            if (selectedRows.Count == 0)
             {
-                List<int> employeeIds = new List<int>();
+                MessageBox.Show("Не выбрана ни одна запись для удаления.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-                foreach (DataGridViewRow row in selectedRows)
+            List<int> employeeIds = new List<int>();
+
+            foreach (DataGridViewRow row in selectedRows)
+            {
+                int employeeId = Convert.ToInt32(row.Cells["№"].Value);
+                employeeIds.Add(employeeId);
+            }
+
+            bool confirmation = MessageBox.Show("Вы уверены, что хотите удалить выбранные записи?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+
+            if (confirmation)
+            {
+                bool deletionResult = Database.DeleteEmployees(employeeIds);
+
+                if (deletionResult)
                 {
-                    int employeeId = Convert.ToInt32(row.Cells["№"].Value);
-                    employeeIds.Add(employeeId);
+                    MessageBox.Show("Удаление выполнено успешно.");
+
+                    UpdateDataGridView();
                 }
-
-                bool confirmation = MessageBox.Show("Вы уверены, что хотите удалить выбранные записи?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
-
-                if (confirmation)
+                else
                 {
-                    bool deletionResult = Database.DeleteEmployees(employeeIds);
-
-                    if (deletionResult)
-                    {
-                        MessageBox.Show("Удаление выполнено успешно.");
-
-                        UpdateDataGridView();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Удаление отменено.");
-                    }
+                    MessageBox.Show("Удаление отменено.");
                 }
             }
         }

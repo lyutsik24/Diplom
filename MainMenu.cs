@@ -29,10 +29,12 @@ namespace Diplom
             if (User.UserRole == "Пользователь")
             {
                 btnUsers.Visible = false;
-                OpenChildForm(new EmployeeList(this));
+                btnEmployees.Text = "Мои данные";
+                OpenChildForm(new EmployeeListUserForm(this));
             }
             else
             {
+                btnEmployees.Text = "Сотрудники";
                 OpenChildForm(new UserList(this));
             }
         }
@@ -73,7 +75,14 @@ namespace Diplom
         private void btnEmployees_Click(object sender, EventArgs e)
         {
             UpdateNavigation(btnEmployees);
-            OpenChildForm(new EmployeeList(this));
+            if (User.UserRole == "Пользователь")
+            {
+                OpenChildForm(new EmployeeListUserForm(this));
+            }
+            else
+            {
+                OpenChildForm(new EmployeeListAdminForm(this));
+            }
         }
 
         private void btnVacationSchedule_Click(object sender, EventArgs e)

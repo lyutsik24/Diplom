@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -39,6 +40,7 @@
             this.dgvShedule = new System.Windows.Forms.DataGridView();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel2.SuspendLayout();
             this.pnlDGV.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShedule)).BeginInit();
@@ -99,6 +101,8 @@
             this.txtphbSearch.PlaceholderText = "Поиск...";
             this.txtphbSearch.Size = new System.Drawing.Size(250, 22);
             this.txtphbSearch.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.txtphbSearch, "Поиск работает по следующим столбцам:\r\nОтдел\r\nДолжность\r\nПолное имя\r\nТип отпуска\r" +
+        "\nСтатус\r\n\r\n");
             this.txtphbSearch.TextChanged += new System.EventHandler(this.txtphbSearch_TextChanged);
             this.txtphbSearch.Enter += new System.EventHandler(this.txtphbSearch_Enter);
             this.txtphbSearch.Leave += new System.EventHandler(this.txtphbSearch_Leave);
@@ -200,5 +204,6 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn2;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

@@ -16,10 +16,12 @@ namespace Diplom.Classess
                 return false;
             }
 
-            string namePattern = @"^[а-яА-ЯёЁ\s]+$";
-            if (!Regex.IsMatch(lastName, namePattern) || !Regex.IsMatch(firstName, namePattern) || !Regex.IsMatch(middleName, namePattern))
+            string namePattern = @"^[а-яА-ЯёЁ]+$";
+            string fullNamePattern = @"^[а-яА-ЯёЁ]+(-[а-яА-ЯёЁ]+)?$";
+
+            if (!Regex.IsMatch(lastName, namePattern) || !Regex.IsMatch(firstName, fullNamePattern) || !Regex.IsMatch(middleName, fullNamePattern))
             {
-                MessageBox.Show("Пожалуйста, введите ФИО на русском языке без цифр и специальных символов.", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Пожалуйста, введите ФИО на русском языке без цифр и специальных символов. Двойное имя или отчество разделяйте дефисом.", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
@@ -29,7 +31,16 @@ namespace Diplom.Classess
                 MessageBox.Show("Пожалуйста, введите адрес на русском языке без специальных символов, кроме .,/-", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            
+
+            DateTime currentDate = DateTime.Now;
+            DateTime minimumDateOfBirth = currentDate.AddYears(-18);
+
+            if (dateOfBirth > minimumDateOfBirth)
+            {
+                MessageBox.Show("Сотруднику должно быть не менее 18 лет.", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
             return true;
         }
 

@@ -308,12 +308,15 @@ namespace Diplom
 
         public static void FillDataGridViewUsers(DataGridView dataGridView)
         {
-            string query = @"SELECT u.user_id AS '№', u.login AS 'Логин', u.email AS 'Электронная почта', u.phone_number AS 'Номер телефона',
-                             CONCAT(e.last_name, ' ', e.first_name, ' ', e.middle_name) AS 'Полное имя', r.role_name
-                             FROM users u
-                             INNER JOIN employees e ON u.id_employee = e.employee_id
-                             INNER JOIN roles r ON u.id_role = r.role_id
-                             ORDER BY u.user_id";
+            int currentUserID = User.UserID;
+
+            string query = $@"SELECT u.user_id AS '№', u.login AS 'Логин', u.email AS 'Электронная почта', u.phone_number AS 'Номер телефона',
+                      CONCAT(e.last_name, ' ', e.first_name, ' ', e.middle_name) AS 'Полное имя', r.role_name
+                      FROM users u
+                      INNER JOIN employees e ON u.id_employee = e.employee_id
+                      INNER JOIN roles r ON u.id_role = r.role_id
+                      WHERE u.user_id <> {currentUserID}
+                      ORDER BY u.user_id";
 
             using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
             {
@@ -406,7 +409,7 @@ namespace Diplom
 
                     dataGridView.DataSource = dt;
 
-                    EmployeeList.SetupDataGridView(dataGridView, dt);
+                    EmployeeListAdminForm.SetupDataGridView(dataGridView, dt);
                 }
             }
         }
@@ -582,16 +585,24 @@ namespace Diplom
         {
             string deleteQuery = "DELETE FROM employees WHERE employee_id IN (" + string.Join(",", employeeIds) + ")";
 
-            using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
+            try
             {
-                using (MySqlCommand command = new MySqlCommand(deleteQuery, cn))
+                using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
                 {
-                    cn.Open();
-                    command.ExecuteNonQuery();
+                    using (MySqlCommand command = new MySqlCommand(deleteQuery, cn))
+                    {
+                        cn.Open();
+                        command.ExecuteNonQuery();
+                    }
                 }
-            }
 
-            return true;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при удалении сотрудников: " + ex.Message);
+                return false;
+            }
         }
 
         public static void FillDataGridViewVacations(DataGridView dataGridView, string role)
@@ -916,6 +927,104 @@ namespace Diplom
                     command.ExecuteNonQuery();
                 }
             }
+        }
+
+        public static void GetEmployeeDetails(int employeeID, out string lastName, out string firstName, out string middleName,
+                                      out string gender, out DateTime dateOfBirth, out string department, out string position,
+                                      out DateTime hireDate, out string address, out string education)
+        {
+            string query = @"SELECT e.employee_id, e.last_name, e.first_name, e.middle_name, g.gender_name, e.date_of_birth, 
+                            d.department_name, p.position_name, e.hire_date, e.address, ed.education_name
+                     FROM employees e
+                     INNER JOIN genders g ON e.id_gender = g.gender_id
+                     INNER JOIN departments d ON e.id_department = d.department_id
+                     INNER JOIN positions p ON e.id_position = p.position_id
+                     INNER JOIN educations ed ON e.id_education = ed.education_id
+                     WHERE e.employee_id = @employeeID";
+
+            using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
+            {
+                using (MySqlCommand command = new MySqlCommand(query, cn))
+                {
+                    command.Parameters.AddWithValue("@employeeID", employeeID);
+
+                    cn.Open();
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            lastName = reader.GetString("last_name");
+                            firstName = reader.GetString("first_name");
+                            middleName = reader.GetString("middle_name");
+                            gender = reader.GetString("gender_name");
+                            dateOfBirth = reader.GetDateTime("date_of_birth");
+                            department = reader.GetString("department_name");
+                            position = reader.GetString("position_name");
+                            hireDate = reader.GetDateTime("hire_date");
+                            address = reader.GetString("address");
+                            education = reader.GetString("education_name");
+                        }
+                        else
+                        {
+                            lastName = string.Empty;
+                            firstName = string.Empty;
+                            middleName = string.Empty;
+                            gender = string.Empty;
+                            dateOfBirth = DateTime.MinValue;
+                            department = string.Empty;
+                            position = string.Empty;
+                            hireDate = DateTime.MinValue;
+                            address = string.Empty;
+                            education = string.Empty;
+                        }
+                    }
+                }
+            }
+        }
+
+        public static bool UpdateEmployeeDetails(int employeeID, string lastName, string firstName, string middleName,
+                                         int genderID, DateTime dateOfBirth, int departmentID,
+                                         int positionID, DateTime hireDate, string address, int educationID)
+        {
+            try
+            {
+                using (MySqlConnection cn = new MySqlConnection(Properties.Settings.Default.DiplomConnectionString))
+                {
+                    cn.Open();
+
+                    string query = "UPDATE employees SET last_name = @LastName, first_name = @FirstName, middle_name = @MiddleName, " +
+                                   "id_gender = @GenderID, date_of_birth = @DateOfBirth, id_department = @DepartmentID, " +
+                                   "id_position = @PositionID, hire_date = @HireDate, address = @Address, id_education = @EducationID " +
+                                   "WHERE employee_id = @EmployeeID";
+
+                    MySqlCommand cmd = new MySqlCommand(query, cn);
+
+                    cmd.Parameters.AddWithValue("@LastName", lastName);
+                    cmd.Parameters.AddWithValue("@FirstName", firstName);
+                    cmd.Parameters.AddWithValue("@MiddleName", middleName);
+                    cmd.Parameters.AddWithValue("@GenderID", genderID);
+                    cmd.Parameters.AddWithValue("@DateOfBirth", dateOfBirth);
+                    cmd.Parameters.AddWithValue("@DepartmentID", departmentID);
+                    cmd.Parameters.AddWithValue("@PositionID", positionID);
+                    cmd.Parameters.AddWithValue("@HireDate", hireDate);
+                    cmd.Parameters.AddWithValue("@Address", address);
+                    cmd.Parameters.AddWithValue("@EducationID", educationID);
+                    cmd.Parameters.AddWithValue("@EmployeeID", employeeID);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Ошибка при обновлении данных: " + ex.Message);
+            }
+
+            return false;
         }
     }
 }

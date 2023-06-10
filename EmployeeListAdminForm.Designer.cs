@@ -1,6 +1,6 @@
 ﻿namespace Diplom
 {
-    partial class EmployeeList
+    partial class EmployeeListAdminForm
     {
         /// <summary>
         /// Required designer variable.
@@ -35,10 +35,11 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.txtphbSearch = new Diplom.TextBoxWithPlaceholder();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgvEmployees = new System.Windows.Forms.DataGridView();
             this.timerUpdate = new System.Windows.Forms.Timer(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtphbSearch = new Diplom.TextBoxWithPlaceholder();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).BeginInit();
@@ -85,24 +86,6 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // txtphbSearch
-            // 
-            this.txtphbSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtphbSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(79)))), ((int)(((byte)(99)))));
-            this.txtphbSearch.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtphbSearch.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtphbSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.txtphbSearch.Location = new System.Drawing.Point(528, 10);
-            this.txtphbSearch.Margin = new System.Windows.Forms.Padding(2);
-            this.txtphbSearch.Name = "txtphbSearch";
-            this.txtphbSearch.PlaceholderColor = System.Drawing.Color.Gray;
-            this.txtphbSearch.PlaceholderText = "Поиск...";
-            this.txtphbSearch.Size = new System.Drawing.Size(250, 22);
-            this.txtphbSearch.TabIndex = 0;
-            this.txtphbSearch.TextChanged += new System.EventHandler(this.txtphbSearch_TextChanged);
-            this.txtphbSearch.Enter += new System.EventHandler(this.txtphbSearch_Enter);
-            this.txtphbSearch.Leave += new System.EventHandler(this.txtphbSearch_Leave);
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.dgvEmployees);
@@ -147,7 +130,7 @@
             this.dgvEmployees.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
@@ -164,6 +147,26 @@
             // 
             this.timerUpdate.Interval = 300000;
             this.timerUpdate.Tick += new System.EventHandler(this.timerUpdate_Tick);
+            // 
+            // txtphbSearch
+            // 
+            this.txtphbSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtphbSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(79)))), ((int)(((byte)(99)))));
+            this.txtphbSearch.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtphbSearch.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtphbSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.txtphbSearch.Location = new System.Drawing.Point(528, 10);
+            this.txtphbSearch.Margin = new System.Windows.Forms.Padding(2);
+            this.txtphbSearch.Name = "txtphbSearch";
+            this.txtphbSearch.PlaceholderColor = System.Drawing.Color.Gray;
+            this.txtphbSearch.PlaceholderText = "Поиск...";
+            this.txtphbSearch.Size = new System.Drawing.Size(250, 22);
+            this.txtphbSearch.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.txtphbSearch, "Поиск работает по следующим столбцам:\r\nФамилия\r\nИмя\r\nОтчество\r\nПол\r\nОтдел\r\nДолжно" +
+        "сть\r\nАдрес\r\nОбразование");
+            this.txtphbSearch.TextChanged += new System.EventHandler(this.txtphbSearch_TextChanged);
+            this.txtphbSearch.Enter += new System.EventHandler(this.txtphbSearch_Enter);
+            this.txtphbSearch.Leave += new System.EventHandler(this.txtphbSearch_Leave);
             // 
             // EmployeeList
             // 
@@ -196,5 +199,6 @@
         public System.Windows.Forms.DataGridView dgvEmployees;
         private System.Windows.Forms.Timer timerUpdate;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
